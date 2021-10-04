@@ -1,1 +1,52 @@
-<p>car works!</p>
+<div class="container-fluid car-container">
+  <div class="d-flex flex-column">
+    <!--    <div-->
+    <!--      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">-->
+    <div class="p-2 border-bottom">
+      <button type="button" class="btn btn-lg btn-outline-secondary"><i class="fa fa-car"></i> Dodaj pojazd</button>
+    </div>
+
+    <!-- Notification for no cars -->
+    <div *ngIf="cars?.length == 0 else noEmptyList" class="p-2 col-lg-12 col-md-12 col-xl-12">
+      <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading"><i class="fa fa-exclamation-triangle"></i> NO CARS!</h4>
+        <p>No cars were found.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- List of cars -->
+<ng-template #noEmptyList>
+  <h1 class="h2 border-bottom">Lista pojazdów:</h1>
+  <table class="table table-hover">
+    <thead class="thead-dark">
+    <tr class="table-dark">
+      <th scope="col">#</th>
+      <th scope="col">Marka</th>
+      <th scope="col">Model</th>
+      <th scope="col">Nr rejestracyjny</th>
+      <th scope="col">VIN</th>
+      <th scope="col">Rok produkcji</th>
+      <th scope="col">Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let car of cars">
+      <th scope="row">{{car.id}}</th>
+      <td>{{car.brand}}</td>
+      <td>{{car.model}}</td>
+      <td>{{car.registrationNumber}}</td>
+      <td>{{car.vinNumber}}</td>
+      <td>{{car.productionYear}}</td>
+      <td>
+        <div class="d-flex justify-content-end btn-group" role="group">
+          <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Info</button>
+          <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i> Edytuj</button>
+          <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</ng-template>

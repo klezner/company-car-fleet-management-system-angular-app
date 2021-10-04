@@ -5,6 +5,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {CarComponent} from './components/car/car.component';
+import {HttpClientModule} from "@angular/common/http";
+import {CarService} from "./shared/services/car.service";
 
 @NgModule({
   declarations: [
@@ -14,9 +16,12 @@ import {CarComponent} from './components/car/car.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    CarService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
