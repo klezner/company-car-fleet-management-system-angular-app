@@ -2,15 +2,19 @@
   <div class="d-flex flex-column">
     <!--    <div-->
     <!--      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">-->
-    <div class="p-2 border-bottom">
-      <button type="button" class="btn btn-lg btn-outline-secondary"><i class="fa fa-car"></i> Dodaj pojazd</button>
+    <div class="d-flex p-2 border-bottom mt-3">
+      <a role="button" class="btn btn-lg btn-outline-primary text-center" data-toggle="modal"
+         data-target="#addCarModal">
+        <span><i class="fa fa-car"></i></span>
+        <br>Dodaj pojazd
+      </a>
     </div>
 
     <!-- Notification for no cars -->
     <div *ngIf="cars?.length == 0 else noEmptyList" class="p-2 col-lg-12 col-md-12 col-xl-12">
       <div class="alert alert-warning" role="alert">
-        <h4 class="alert-heading"><i class="fa fa-exclamation-triangle"></i> NO CARS!</h4>
-        <p>No cars were found.</p>
+        <h4 class="alert-heading text-center"><i class="fa fa-exclamation-triangle"></i> NO CARS!</h4>
+        <p class="text-center">No cars were found.</p>
       </div>
     </div>
   </div>
@@ -18,30 +22,32 @@
 
 <!-- List of cars -->
 <ng-template #noEmptyList>
-  <h1 class="h2 border-bottom">Lista pojazdów:</h1>
+  <h1 class="h2 border-bottom mt-5">Lista pojazdów:</h1>
   <table class="table table-hover">
     <thead class="thead-dark">
     <tr class="table-dark">
-      <th scope="col">#</th>
-      <th scope="col">Marka</th>
-      <th scope="col">Model</th>
-      <th scope="col">Nr rejestracyjny</th>
-      <th scope="col">VIN</th>
-      <th scope="col">Rok produkcji</th>
-      <th scope="col">Akcje</th>
+      <th scope="col" class="text-center">#</th>
+      <th scope="col" class="text-center">Marka</th>
+      <th scope="col" class="text-center">Model</th>
+      <th scope="col" class="text-center">Nr rejestracyjny</th>
+      <th scope="col" class="text-center">VIN</th>
+      <th scope="col" class="text-center">Rok produkcji</th>
+      <th scope="col" class="text-center">Akcje</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let car of cars">
-      <th scope="row">{{car.id}}</th>
-      <td>{{car.brand}}</td>
-      <td>{{car.model}}</td>
-      <td>{{car.registrationNumber}}</td>
-      <td>{{car.vinNumber}}</td>
-      <td>{{car.productionYear}}</td>
+      <th scope="row" class="text-center align-middle">{{car.id}}</th>
+      <td class="text-center align-middle">{{car.brand}}</td>
+      <td class="text-center align-middle">{{car.model}}</td>
+      <td class="text-center align-middle">{{car.registrationNumber}}</td>
+      <td class="text-center align-middle">{{car.vinNumber}}</td>
+      <td class="text-center align-middle">{{car.productionYear}}</td>
       <td>
         <div class="d-flex justify-content-end btn-group" role="group">
-          <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Info</button>
+          <a href="/car/{{car.id}}">
+            <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Info</button>
+          </a>
           <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i> Edytuj</button>
           <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
         </div>
@@ -50,3 +56,46 @@
     </tbody>
   </table>
 </ng-template>
+
+<!-- addPatientModal -->
+<div class="modal fade" id="addCarModal" tabindex="-1" role="dialog" aria-labelledby="addCarModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCarModalLabel">Dodaj pojazd</h5>
+        <button type="button" id="closeAddCarModal" class="btn" data-dismiss="modal"
+                aria-label="Close"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newCarForm">
+          <div class="mb-3">
+            <label for="brand" class="form-label">Marka:</label>
+            <input type="text" class="form-control" id="brand" formControlName="brand">
+          </div>
+          <div class="mb-3">
+            <label for="model" class="form-label">Model:</label>
+            <input type="text" class="form-control" id="model" formControlName="model">
+          </div>
+          <div class="mb-3">
+            <label for="registrationNumber" class="form-label">Numer rejestracyjny:</label>
+            <input type="text" class="form-control" id="registrationNumber" formControlName="registrationNumber">
+          </div>
+          <div class="mb-3">
+            <label for="vinNumber" class="form-label">VIN:</label>
+            <input type="text" class="form-control" id="vinNumber" formControlName="vinNumber">
+          </div>
+          <div class="mb-3">
+            <label for="productionYear" class="form-label">Rok produkcji:</label>
+            <input type="number" class="form-control" id="productionYear" formControlName="productionYear">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="clearForm()" class="btn btn-warning mx-2"><i class="fa fa-close"></i> Wyczyść
+        </button>
+        <button type="button" (click)="addCar()" class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz</button>
+      </div>
+    </div>
+  </div>
+</div>

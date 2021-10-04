@@ -7,6 +7,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {CarComponent} from './components/car/car.component';
 import {HttpClientModule} from "@angular/common/http";
 import {CarService} from "./shared/services/car.service";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,9 @@ import {CarService} from "./shared/services/car.service";
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     CarService

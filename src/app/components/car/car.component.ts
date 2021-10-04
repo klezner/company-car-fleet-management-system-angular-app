@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {CarService} from "../../shared/services/car.service";
 import {CarResponse} from "../../shared/models/car-response";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {CreateCarRequest} from "../../shared/models/create-car-request";
+import {FormControl, FormGroup} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-car',
@@ -11,7 +14,18 @@ import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 export class CarComponent implements OnInit {
   cars: CarResponse[] | null = [];
 
-  constructor(private carService: CarService) {
+  newCar: CreateCarRequest = new CreateCarRequest();
+
+  newCarForm = new FormGroup({
+    brand: new FormControl(),
+    model: new FormControl(),
+    registrationNumber: new FormControl(),
+    vinNumber: new FormControl(),
+    productionYear: new FormControl()
+  })
+
+  constructor(private router: Router,
+              private carService: CarService) {
   }
 
   ngOnInit(): void {
@@ -28,5 +42,30 @@ export class CarComponent implements OnInit {
         alert(error.message);
       }
     )
+  }
+
+  addCar(): void {
+    this.newCar.brand = this.newCarForm.value.brand;
+    this.newCar.model = this.newCarForm.value.model;
+    this.newCar.registrationNumber = this.newCarForm.value.registrationNumber;
+    this.newCar.vinNumber = this.newCarForm.value.vinNumber;
+    this.newCar.productionYear = this.newCarForm.value.productionYear;
+
+    this.carService.postCar(this.newCar).subscribe(
+      (response: HttpResponse<CarResponse>) => {
+        console.log(response.body);
+        alert('postCar -> HttpStatus: ' + response.status + ' -> ' + response.body);
+        this.clearForm();
+        document.getElementById('closeAddCarModal')?.click();
+        this.ngOnInit();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
+
+  clearForm(): void {
+    this.newCarForm.reset();
   }
 }
