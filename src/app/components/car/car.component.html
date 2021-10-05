@@ -72,29 +72,58 @@
           <div class="mb-3">
             <label for="brand" class="form-label">Marka:</label>
             <input type="text" class="form-control" id="brand" formControlName="brand">
+            <small *ngIf="newCarForm.get('brand')?.hasError('required') && newCarForm.get('brand')?.touched"
+                   class="text-danger">Marka jest wymagana
+            </small>
           </div>
           <div class="mb-3">
             <label for="model" class="form-label">Model:</label>
             <input type="text" class="form-control" id="model" formControlName="model">
+            <small *ngIf="newCarForm.get('model')?.hasError('required') && newCarForm.get('model')?.touched"
+                   class="text-danger">Model jest wymagany
+            </small>
           </div>
           <div class="mb-3">
             <label for="registrationNumber" class="form-label">Numer rejestracyjny:</label>
             <input type="text" class="form-control" id="registrationNumber" formControlName="registrationNumber">
+            <small
+              *ngIf="newCarForm.get('registrationNumber')?.hasError('required') && newCarForm.get('registrationNumber')?.touched"
+              class="text-danger">Numer rejestracyjny jest wymagany
+            </small>
+            <small
+              *ngIf="newCarForm.get('registrationNumber')?.hasError('minLength')"
+              class="text-danger">Numer rejestracyjny musi mieć conajmniej 3 znaki</small>
+            <small
+              *ngIf="newCarForm.get('registrationNumber')?.hasError('maxLength')"
+              class="text-danger">Numer rejestracyjny musi mieć maksymalnie 8 znaków</small>
           </div>
           <div class="mb-3">
             <label for="vinNumber" class="form-label">VIN:</label>
             <input type="text" class="form-control" id="vinNumber" formControlName="vinNumber">
+            <small *ngIf="newCarForm.get('vinNumber')?.hasError('required') && newCarForm.get('vinNumber')?.touched"
+                   class="text-danger">VIN jest wymagany</small>
+            <small
+              *ngIf="newCarForm.get('vinNumber')?.hasError('minLength') || newCarForm.get('vinNumber')?.hasError('maxLength')"
+              class="text-danger">VIN musi mieć długość 17 znaków</small>
           </div>
           <div class="mb-3">
             <label for="productionYear" class="form-label">Rok produkcji:</label>
             <input type="number" class="form-control" id="productionYear" formControlName="productionYear">
+            <small
+              *ngIf="newCarForm.get('productionYear')?.hasError('required') && newCarForm.get('productionYear')?.touched"
+              class="text-danger">Rok produkcji jest wymagany</small>
+            <small
+              *ngIf="newCarForm.get('productionYear')?.hasError('min') || newCarForm.get('productionYear')?.hasError('max')"
+              class="text-danger">Rok produkcji musi być późniejszy niż 2000</small>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" (click)="clearForm()" class="btn btn-warning mx-2"><i class="fa fa-close"></i> Wyczyść
         </button>
-        <button type="button" (click)="addCar()" class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz</button>
+        <button [disabled]="!newCarForm.valid" type="button" (click)="addCar()" class="btn btn-primary mx-2"><i
+          class="fa fa-save"></i> Zapisz
+        </button>
       </div>
     </div>
   </div>

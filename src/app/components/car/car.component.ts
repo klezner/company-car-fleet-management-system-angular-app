@@ -3,7 +3,7 @@ import {CarService} from "../../shared/services/car.service";
 import {CarResponse} from "../../shared/models/car-response";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {CreateCarRequest} from "../../shared/models/create-car-request";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 
 @Component({
@@ -17,11 +17,11 @@ export class CarComponent implements OnInit {
   newCar: CreateCarRequest = new CreateCarRequest();
 
   newCarForm = new FormGroup({
-    brand: new FormControl(),
-    model: new FormControl(),
-    registrationNumber: new FormControl(),
-    vinNumber: new FormControl(),
-    productionYear: new FormControl()
+    brand: new FormControl(null, Validators.required),
+    model: new FormControl(null, Validators.required),
+    registrationNumber: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(8)]),
+    vinNumber: new FormControl(null, [Validators.required, Validators.minLength(17), Validators.maxLength(17)]),
+    productionYear: new FormControl(null, [Validators.required, Validators.min(2000), Validators.max(2050)])
   })
 
   constructor(private router: Router,
