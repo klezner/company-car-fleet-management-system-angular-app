@@ -4,6 +4,7 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CarResponse} from "../models/car-response";
 import {CreateCarRequest} from "../models/create-car-request";
+import {UpdateCarRequest} from "../models/update-car-request";
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,12 @@ export class CarService {
 
   getCar(id: number): Observable<HttpResponse<CarResponse>> {
     return this.http.get<CarResponse>(`${this.apiServerUrl}/${this.carPath}/${id}`, {observe: 'response'});
+  }
+
+  editCar(updatedCar: UpdateCarRequest): Observable<HttpResponse<CarResponse>> {
+    return this.http.put<CarResponse>(`${this.apiServerUrl}/${this.carPath}`, updatedCar, {
+      observe: 'response',
+      headers: {'Content-Type': 'application/json'}
+    });
   }
 }
