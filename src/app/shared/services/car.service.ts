@@ -25,4 +25,8 @@ export class CarService {
       headers: {'Content-Type': 'application/json'}
     });
   }
+
+  getCar(id: number): Observable<HttpResponse<CarResponse>> {
+    return this.http.get<CarResponse>(`${this.apiServerUrl}/${this.carPath}/${id}`, {observe: 'response'});
+  }
 }

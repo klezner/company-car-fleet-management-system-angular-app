@@ -1,4 +1,4 @@
-export interface CarResponse {
+export class CarResponse {
   id: number;
   brand: string;
   model: string;
