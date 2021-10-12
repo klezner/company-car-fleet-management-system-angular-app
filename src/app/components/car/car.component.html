@@ -27,9 +27,9 @@
     <thead class="thead-dark">
     <tr class="table-dark">
       <th scope="col" class="text-center">#</th>
+      <th scope="col" class="text-center">Nr rejestracyjny</th>
       <th scope="col" class="text-center">Marka</th>
       <th scope="col" class="text-center">Model</th>
-      <th scope="col" class="text-center">Nr rejestracyjny</th>
       <th scope="col" class="text-center">VIN</th>
       <th scope="col" class="text-center">Rok produkcji</th>
       <th scope="col" class="text-center">Akcje</th>
@@ -38,15 +38,15 @@
     <tbody>
     <tr *ngFor="let car of cars">
       <th scope="row" class="text-center align-middle">{{car.id}}</th>
+      <td class="text-center align-middle">{{car.registrationNumber}}</td>
       <td class="text-center align-middle">{{car.brand}}</td>
       <td class="text-center align-middle">{{car.model}}</td>
-      <td class="text-center align-middle">{{car.registrationNumber}}</td>
       <td class="text-center align-middle">{{car.vinNumber}}</td>
       <td class="text-center align-middle">{{car.productionYear}}</td>
       <td>
         <div class="d-flex justify-content-end btn-group" role="group">
           <a href="/car/{{car.id}}">
-            <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Info</button>
+            <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
           </a>
           <button class="btn btn-outline-warning m-1" data-toggle="modal"
                   data-target="#editCarModal" (click)="onSelectedCarIdToEdit(car.id)"><i class="fa fa-edit"></i> Edytuj

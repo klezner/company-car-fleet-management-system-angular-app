@@ -4,7 +4,6 @@ import {CarResponse} from "../../shared/models/car-response";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {CreateCarRequest} from "../../shared/models/create-car-request";
 import {NgForm} from "@angular/forms";
-import {Router} from "@angular/router";
 import {UpdateCarRequest} from "../../shared/models/update-car-request";
 
 @Component({
@@ -15,11 +14,9 @@ import {UpdateCarRequest} from "../../shared/models/update-car-request";
 export class CarComponent implements OnInit {
   cars: CarResponse[] | null;
   newCar: CreateCarRequest = new CreateCarRequest();
-  carToEdit: CarResponse | null;
   editedCar: UpdateCarRequest = new UpdateCarRequest();
 
-  constructor(private router: Router,
-              private carService: CarService) {
+  constructor(private carService: CarService) {
   }
 
   @ViewChild('addCarForm', {static: false}) addCarForm: NgForm;
@@ -38,7 +35,7 @@ export class CarComponent implements OnInit {
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
-    )
+    );
   }
 
   onAddCar(form: NgForm): void {
@@ -53,14 +50,14 @@ export class CarComponent implements OnInit {
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
-    )
+    );
   }
 
   onUpdateCar(form: NgForm): void {
     this.carService.editCar(this.editedCar).subscribe(
       (response: HttpResponse<CarResponse>) => {
         console.log(response.body);
-        alert('postCar -> HttpStatus: ' + response.status + ' -> ' + response.body);
+        alert('editCar -> HttpStatus: ' + response.status + ' -> ' + response.body);
         this.onClear(form);
         document.getElementById('closeEditCarModal')?.click();
         this.ngOnInit();
@@ -68,7 +65,7 @@ export class CarComponent implements OnInit {
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
-    )
+    );
   }
 
   onClear(form: NgForm): void {
@@ -85,11 +82,11 @@ export class CarComponent implements OnInit {
         this.editedCar.registrationNumber = response.body?.registrationNumber;
         this.editedCar.vinNumber = response.body?.vinNumber;
         this.editedCar.productionYear = response.body?.productionYear;
-        console.log('getCar -> HttpStatus: ' + response.status + ' -> ' + response.body + this.carToEdit?.id + this.carToEdit?.brand + this.carToEdit?.model);
+        console.log('getCar -> HttpStatus: ' + response.status + ' -> ' + response.body);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
-    )
+    );
   }
 }
