@@ -10,6 +10,7 @@ import {CarService} from "./shared/services/car.service";
 import {FormsModule} from "@angular/forms";
 import {CarDetailsComponent} from './components/car-details/car-details.component';
 import {CompanyComponent} from './components/company/company.component';
+import {CompanyService} from "./shared/services/company.service";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {CompanyComponent} from './components/company/company.component';
     FormsModule
   ],
   providers: [
-    CarService
+    CarService,
+    CompanyService
   ],
   bootstrap: [AppComponent]
 })

@@ -9,7 +9,7 @@ import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
-  companies: CompanyResponse[] | null;
+  companies: CompanyResponse[] | null = [];
 
   constructor(private companyService: CompanyService) {
   }

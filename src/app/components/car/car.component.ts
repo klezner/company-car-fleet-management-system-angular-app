@@ -12,7 +12,7 @@ import {UpdateCarRequest} from "../../shared/models/update-car-request";
   styleUrls: ['./car.component.css']
 })
 export class CarComponent implements OnInit {
-  cars: CarResponse[] | null;
+  cars: CarResponse[] | null = [];
   newCar: CreateCarRequest = new CreateCarRequest();
   editedCar: UpdateCarRequest = new UpdateCarRequest();
 
