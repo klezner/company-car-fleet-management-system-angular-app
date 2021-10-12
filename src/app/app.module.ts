@@ -9,12 +9,14 @@ import {HttpClientModule} from "@angular/common/http";
 import {CarService} from "./shared/services/car.service";
 import {FormsModule} from "@angular/forms";
 import {CarDetailsComponent} from './components/car-details/car-details.component';
+import {CompanyComponent} from './components/company/company.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CarComponent,
-    CarDetailsComponent
+    CarDetailsComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,
