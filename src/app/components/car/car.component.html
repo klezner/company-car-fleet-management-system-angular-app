@@ -2,19 +2,32 @@
   <div class="d-flex flex-column">
     <!--    <div-->
     <!--      class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">-->
-    <div class="d-flex p-2 border-bottom mt-3">
-      <button class="btn btn-lg btn-outline-primary text-center" data-toggle="modal"
-              data-target="#addCarModal">
-        <span><i class="fa fa-car"></i></span>
-        <br>Dodaj pojazd
-      </button>
+    <div class="row">
+      <div class="col col-12">
+        <div class="d-flex p-2 border-bottom mt-3">
+          <button class="btn btn-lg btn-outline-primary text-center" data-toggle="modal"
+                  data-target="#addCarModal">
+            <span><i class="fa fa-car"></i></span>
+            <br>Dodaj pojazd
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Notification for no cars -->
-    <div *ngIf="cars?.length == 0 else noEmptyList" class="p-2 col-lg-12 col-md-12 col-xl-12">
-      <div class="alert alert-warning" role="alert">
-        <h4 class="alert-heading text-center"><i class="fa fa-exclamation-triangle"></i> NO CARS!</h4>
-        <p class="text-center">No cars were found.</p>
+    <div class="row">
+      <div *ngIf="cars?.length == 0 else noEmptyList" class="p-2 col-lg-12 col-md-12 col-xl-12">
+        <div class="alert alert-warning" role="alert">
+          <h4 class="alert-heading text-center"><i class="fa fa-exclamation-triangle"></i> NO CARS!</h4>
+          <p class="text-center">No cars were found.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-12 d-flex flex-row-reverse">
+        <a href="/">
+          <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do strony głównej</button>
+        </a>
       </div>
     </div>
   </div>
@@ -22,41 +35,44 @@
 
 <!-- List of cars -->
 <ng-template #noEmptyList>
-  <h1 class="h2 border-bottom mt-5">Lista pojazdów:</h1>
-  <table class="table table-hover">
-    <thead class="thead-dark">
-    <tr class="table-dark">
-      <th scope="col" class="text-center">#</th>
-      <th scope="col" class="text-center">Nr rejestracyjny</th>
-      <th scope="col" class="text-center">Marka</th>
-      <th scope="col" class="text-center">Model</th>
-      <th scope="col" class="text-center">VIN</th>
-      <th scope="col" class="text-center">Rok produkcji</th>
-      <th scope="col" class="text-center">Akcje</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let car of cars">
-      <th scope="row" class="text-center align-middle">{{car.id}}</th>
-      <td class="text-center align-middle">{{car.registrationNumber}}</td>
-      <td class="text-center align-middle">{{car.brand}}</td>
-      <td class="text-center align-middle">{{car.model}}</td>
-      <td class="text-center align-middle">{{car.vinNumber}}</td>
-      <td class="text-center align-middle">{{car.productionYear}}</td>
-      <td>
-        <div class="d-flex justify-content-end btn-group" role="group">
-          <a href="/car/{{car.id}}">
-            <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
-          </a>
-          <button class="btn btn-outline-warning m-1" data-toggle="modal"
-                  data-target="#editCarModal" (click)="onSelectedCarIdToEdit(car.id)"><i class="fa fa-edit"></i> Edytuj
-          </button>
-          <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="col col=12">
+    <h1 class="display-4 fw-bold lh-1 border-bottom">Lista pojazdów:</h1>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr class="table-dark">
+        <th scope="col" class="text-center">#</th>
+        <th scope="col" class="text-center">Nr rejestracyjny</th>
+        <th scope="col" class="text-center">Marka</th>
+        <th scope="col" class="text-center">Model</th>
+        <th scope="col" class="text-center">VIN</th>
+        <th scope="col" class="text-center">Rok produkcji</th>
+        <th scope="col" class="text-center">Akcje</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let car of cars">
+        <th scope="row" class="text-center align-middle">{{car.id}}</th>
+        <td class="text-center align-middle">{{car.registrationNumber}}</td>
+        <td class="text-center align-middle">{{car.brand}}</td>
+        <td class="text-center align-middle">{{car.model}}</td>
+        <td class="text-center align-middle">{{car.vinNumber}}</td>
+        <td class="text-center align-middle">{{car.productionYear}}</td>
+        <td>
+          <div class="d-flex justify-content-end btn-group" role="group">
+            <a href="/car/{{car.id}}">
+              <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
+            </a>
+            <button class="btn btn-outline-warning m-1" data-toggle="modal"
+                    data-target="#editCarModal" (click)="onSelectedCarIdToEdit(car.id)"><i class="fa fa-edit"></i>
+              Edytuj
+            </button>
+            <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </ng-template>
 
 <!-- addCarModal -->

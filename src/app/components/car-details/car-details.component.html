@@ -1,4 +1,4 @@
-<div class="container my-5">
+<div class="container my-3">
   <div class="row p-2 pe-lg-0 pt-lg-2 align-items-center rounded-3 border shadow">
     <div class="p-2 p-lg-5 pt-lg-3 col col-12">
       <div class="row">
@@ -8,7 +8,7 @@
       </div>
       <div class="row">
         <div class="col col-3">
-          <table class="table table-bordered">
+          <table class="table table-bordered mt-5">
             <tr>
               <th scope="row" class="table-dark text-center align-middle">Nr rejestracyjny</th>
               <td class="text-center align-middle">{{car?.registrationNumber}}</td>
@@ -83,6 +83,13 @@
             </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-12 d-flex flex-row-reverse">
+          <a href="/cars">
+            <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do listy pojazdów</button>
+          </a>
         </div>
       </div>
     </div>
