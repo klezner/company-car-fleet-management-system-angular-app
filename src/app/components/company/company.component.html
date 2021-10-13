@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col col-12">
         <div class="d-flex p-2 border-bottom mt-3">
-          <button class="btn btn-lg btn-outline-primary text-center">
+          <button class="btn btn-lg btn-outline-primary text-center" data-toggle="modal"
+                  data-target="#addCompanyModal">
             <span><i class="fa fa-building"></i></span>
             <br>Dodaj firmę
           </button>
@@ -64,3 +65,37 @@
     </table>
   </div>
 </ng-template>
+
+<!-- addCompanyModal -->
+<div class="modal fade" id="addCompanyModal" tabindex="-1" role="dialog" aria-labelledby="addCCompanyModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCompanyModalLabel">Dodaj firmę</h5>
+        <button type="button" id="closeAddCompanyModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(addCompanyForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #addCompanyForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="addName" class="form-label">Nazwa:</label>
+            <input id="addName" type="text" class="form-control" name="addName" required
+                   [(ngModel)]="newCompany.name" #name="ngModel">
+            <div class="text-danger" *ngIf="name.errors && (name.touched || name.dirty)">
+              <small *ngIf="name.errors.required">Nazwa jest wymagana</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(addCompanyForm)" class="btn btn-warning mx-2"><i class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!addCompanyForm.valid" type="submit" (click)="onAddCompany(addCompanyForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

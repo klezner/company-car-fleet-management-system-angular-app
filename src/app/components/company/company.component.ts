@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CompanyResponse} from "../../shared/models/company-response";
 import {CompanyService} from "../../shared/services/company.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {CreateCompanyRequest} from "../../shared/models/create-company-request";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-company',
@@ -10,9 +12,12 @@ import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 })
 export class CompanyComponent implements OnInit {
   companies: CompanyResponse[] | null = [];
+  newCompany: CreateCompanyRequest = new CreateCompanyRequest();
 
   constructor(private companyService: CompanyService) {
   }
+
+  @ViewChild('addCompanyForm', {static: false}) addCompany: NgForm;
 
   ngOnInit(): void {
     this.getCompanies();
@@ -28,5 +33,25 @@ export class CompanyComponent implements OnInit {
         alert(error.message);
       }
     );
+  }
+
+  onAddCompany(form: NgForm): void {
+    this.companyService.postCompany(this.newCompany).subscribe(
+      (response: HttpResponse<CompanyResponse>) => {
+        console.log(response.body);
+        alert('postCompany -> HttpStatus: ' + response.status + ' -> ' + response.body);
+        this.onClear(form);
+        document.getElementById('closeAddCompanyModal')?.click();
+        this.ngOnInit();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  onClear(form: NgForm): void {
+    form.reset();
+    form.form.markAsPristine();
   }
 }
