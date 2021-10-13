@@ -4,6 +4,7 @@ import {CompanyService} from "../../shared/services/company.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {CreateCompanyRequest} from "../../shared/models/create-company-request";
 import {NgForm} from "@angular/forms";
+import {UpdateCompanyRequest} from "../../shared/models/update-company-request";
 
 @Component({
   selector: 'app-company',
@@ -13,11 +14,13 @@ import {NgForm} from "@angular/forms";
 export class CompanyComponent implements OnInit {
   companies: CompanyResponse[] | null = [];
   newCompany: CreateCompanyRequest = new CreateCompanyRequest();
+  editedCompany: UpdateCompanyRequest = new UpdateCompanyRequest();
 
   constructor(private companyService: CompanyService) {
   }
 
   @ViewChild('addCompanyForm', {static: false}) addCompany: NgForm;
+  @ViewChild('editCompanyForm', {static: false}) editCompany: NgForm;
 
   ngOnInit(): void {
     this.getCompanies();
@@ -50,8 +53,36 @@ export class CompanyComponent implements OnInit {
     );
   }
 
+  onUpdateCompany(form: NgForm): void {
+    this.companyService.editCompany(this.editedCompany).subscribe(
+      (response: HttpResponse<CompanyResponse>) => {
+        console.log(response.body);
+        alert('editCompany -> HttpStatus: ' + response.status + ' -> ' + response.body);
+        this.onClear(form);
+        document.getElementById('closeEditCompanyModal')?.click();
+        this.ngOnInit();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   onClear(form: NgForm): void {
     form.reset();
     form.form.markAsPristine();
+  }
+
+  onSelectedCompanyIdToEdit(editedCompanyId: number): void {
+    this.companyService.getCompany(editedCompanyId).subscribe(
+      (response: HttpResponse<CompanyResponse>) => {
+        this.editedCompany.id = response.body?.id;
+        this.editedCompany.name = response.body?.name;
+        console.log('getCompany -> HttpStatus: ' + response.status + ' -> ' + response.body);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }
