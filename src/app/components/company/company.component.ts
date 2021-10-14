@@ -73,7 +73,7 @@ export class CompanyComponent implements OnInit {
     form.form.markAsPristine();
   }
 
-  onSelectedCompanyIdToEdit(editedCompanyId: number): void {
+  onSelectCompanyIdToEdit(editedCompanyId: number): void {
     this.companyService.getCompany(editedCompanyId).subscribe(
       (response: HttpResponse<CompanyResponse>) => {
         this.editedCompany.id = response.body?.id;

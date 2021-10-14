@@ -73,7 +73,7 @@ export class CarComponent implements OnInit {
     form.form.markAsPristine();
   }
 
-  onSelectedCarIdToEdit(editedCarId: number): void {
+  onSelectCarIdToEdit(editedCarId: number): void {
     this.carService.getCar(editedCarId).subscribe(
       (response: HttpResponse<CarResponse>) => {
         this.editedCar.id = response.body?.id;

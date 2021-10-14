@@ -61,7 +61,8 @@
             <a href="/department/{{department.id}}">
               <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
             </a>
-            <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i>
+            <button class="btn btn-outline-warning m-1" data-toggle="modal" data-target="#editDepartmentModal"
+                    (click)="onSelectDepartmentIdToEdit(department.id); getCompanies()"><i class="fa fa-edit"></i>
               Edytuj
             </button>
             <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
@@ -124,6 +125,64 @@
           Wyczyść
         </button>
         <button [disabled]="!addDepartmentForm.valid" type="submit" (click)="onAddDepartment(addDepartmentForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- editDepartmentModal -->
+<div class="modal fade" id="editDepartmentModal" tabindex="-1" role="dialog" aria-labelledby="editDepartmentModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editDepartmentModalLabel">Dodaj departament</h5>
+        <button type="button" id="closeEditDepartmentModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(editDepartmentForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #editDepartmentForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="editName" class="form-label">Nazwa:</label>
+            <input id="editName" type="text" class="form-control" name="editName" required
+                   [(ngModel)]="editedDepartment.name" #name="ngModel">
+            <div class="text-danger" *ngIf="name.errors && (name.touched || name.dirty)">
+              <small *ngIf="name.errors.required">Nazwa jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editAbbreviation" class="form-label">Skrót:</label>
+            <input id="editAbbreviation" type="text" class="form-control" name="editAbbreviation" required
+                   [(ngModel)]="editedDepartment.abbreviation" #abbreviation="ngModel">
+            <div class="text-danger" *ngIf="abbreviation.errors && (abbreviation.touched || abbreviation.dirty)">
+              <small *ngIf="abbreviation.errors.required">Skrót jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editComment" class="form-label">Komentarz:</label>
+            <input id="editComment" type="text" class="form-control" name="editComment"
+                   [(ngModel)]="editedDepartment.comment" #comment="ngModel">
+          </div>
+          <div class="form-group mb-3">
+            <label for="editCompanyId" class="form-label">Firma:</label>
+            <select id="editCompanyId" type="number" class="form-control" name="editCompanyId" required
+                    [(ngModel)]="editedDepartment.companyId" #companyId="ngModel">
+              <option *ngFor="let company of companies" [ngValue]="company.id">{{company.name}}</option>
+            </select>
+            <div class="text-danger" *ngIf="companyId.errors && (companyId.touched || companyId.dirty)">
+              <small *ngIf="companyId.errors.required">Firma jest wymagana</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(editDepartmentForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!editDepartmentForm.valid" type="submit" (click)="onUpdateDepartment(editDepartmentForm)"
                 class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
         </button>
       </div>
