@@ -13,6 +13,7 @@ import {CompanyComponent} from './components/company/company.component';
 import {CompanyService} from "./shared/services/company.service";
 import {CompanyDetailsComponent} from './components/company-details/company-details.component';
 import {DepartmentComponent} from './components/department/department.component';
+import {DepartmentService} from "./shared/services/department.service";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {DepartmentComponent} from './components/department/department.component'
   ],
   providers: [
     CarService,
-    CompanyService
+    CompanyService,
+    DepartmentService
   ],
   bootstrap: [AppComponent]
 })
