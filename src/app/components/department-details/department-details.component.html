@@ -4,25 +4,37 @@
       <!-- Details page title -->
       <div class="row">
         <div class="col col-12">
-          <h1 class="display-4 fw-bold lh-1 border-bottom">Szczegóły firmy:</h1>
+          <h1 class="display-4 fw-bold lh-1 border-bottom">Szczegóły departamentu:</h1>
         </div>
       </div>
       <!-- Details page -->
       <div class="row">
-        <!-- Company details -->
+        <!-- Department details -->
         <div class="col col-3">
           <table class="table table-bordered mt-5">
             <tr>
               <th scope="row" class="table-dark text-center align-middle">Nazwa</th>
-              <td class="text-center align-middle">{{company?.name}}</td>
+              <td class="text-center align-middle">{{department?.name}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Skrót</th>
+              <td class="text-center align-middle">{{department?.abbreviation}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Komentarz</th>
+              <td class="text-center align-middle">{{department?.comment}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Firma</th>
+              <td class="text-center align-middle">{{department?.company?.name}}</td>
             </tr>
           </table>
         </div>
-        <!-- Company departments -->
+        <!-- Department employees -->
         <div class="col col-8 offset-1">
           <div class="row">
             <div class="col col-12">
-              <h3 class="display-5 lh-1 border-bottom mt-3">Departamenty:</h3>
+              <h3 class="display-5 lh-1 border-bottom mt-3">Pracownicy:</h3>
               <table class="table table-bordered">
                 <thead class="thead-dark">
                 <tr class="table-dark">
@@ -37,11 +49,11 @@
               </table>
             </div>
           </div>
-          <!-- Return to company list page button -->
+          <!-- Return to department list page button -->
           <div class="row">
             <div class="col col-12 d-flex flex-row-reverse">
-              <a href="/companies">
-                <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do listy firm
+              <a href="/departments">
+                <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do listy departamentów
                 </button>
               </a>
             </div>
