@@ -11,13 +11,15 @@ import {FormsModule} from "@angular/forms";
 import {CarDetailsComponent} from './components/car-details/car-details.component';
 import {CompanyComponent} from './components/company/company.component';
 import {CompanyService} from "./shared/services/company.service";
+import {CompanyDetailsComponent} from './components/company-details/company-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CarComponent,
     CarDetailsComponent,
-    CompanyComponent
+    CompanyComponent,
+    CompanyDetailsComponent
   ],
   imports: [
     BrowserModule,
