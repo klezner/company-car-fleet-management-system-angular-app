@@ -61,7 +61,8 @@
             <a href="/department/{{employee.id}}">
               <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
             </a>
-            <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i>
+            <button class="btn btn-outline-warning m-1" data-toggle="modal" data-target="#editEmployeeModal"
+                    (click)="onSelectEmployeeIdToEdit(employee.id); getDepartments()"><i class="fa fa-edit"></i>
               Edytuj
             </button>
             <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
@@ -105,7 +106,8 @@
             <label for="addDepartmentId" class="form-label">Departament:</label>
             <select id="addDepartmentId" type="number" class="form-control" name="addDepartmentId" required
                     [(ngModel)]="newEmployee.departmentId" #departmentId="ngModel">
-              <option *ngFor="let department of departments" [ngValue]="department.id">{{department.name}}</option>
+              <option *ngFor="let department of departments" [ngValue]="department.id">[{{department.company.name}}
+                ] {{department.name}}</option>
             </select>
             <div class="text-danger" *ngIf="departmentId.errors && (departmentId.touched || departmentId.dirty)">
               <small *ngIf="departmentId.errors.required">Departament jest wymagany</small>
@@ -119,6 +121,60 @@
           Wyczyść
         </button>
         <button [disabled]="!addEmployeeForm.valid" type="submit" (click)="onAddEmployee(addEmployeeForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- editDepartmentModal -->
+<div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="editEmployeeModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editEmployeeModalLabel">Edytuj pracownika nr {{editedEmployee.id}}</h5>
+        <button type="button" id="closeEditEmployeeModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(editEmployeeForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #editEmployeeForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="editFirstName" class="form-label">Imię:</label>
+            <input id="editFirstName" type="text" class="form-control" name="editFirstName" required
+                   [(ngModel)]="editedEmployee.firstName" #firstName="ngModel">
+            <div class="text-danger" *ngIf="firstName.errors && (firstName.touched || firstName.dirty)">
+              <small *ngIf="firstName.errors.required">Imię jest wymagane</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editLastName" class="form-label">Nazwisko:</label>
+            <input id="editLastName" type="text" class="form-control" name="editLastName" required
+                   [(ngModel)]="editedEmployee.lastName" #lastName="ngModel">
+            <div class="text-danger" *ngIf="lastName.errors && (lastName.touched || lastName.dirty)">
+              <small *ngIf="lastName.errors.required">Nazwisko jest wymagane</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editDepartmentId" class="form-label">Firma:</label>
+            <select id="editDepartmentId" type="number" class="form-control" name="editDepartmentId" required
+                    [(ngModel)]="editedEmployee.departmentId" #departmentId="ngModel">
+              <option *ngFor="let department of departments" [ngValue]="department.id">[{{department.company.name}}
+                ] {{department.name}}</option>
+            </select>
+            <div class="text-danger" *ngIf="departmentId.errors && (departmentId.touched || departmentId.dirty)">
+              <small *ngIf="departmentId.errors.required">Departament jest wymagany</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(editEmployeeForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!editEmployeeForm.valid" type="submit" (click)="onUpdateEmployee(editEmployeeForm)"
                 class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
         </button>
       </div>

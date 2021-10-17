@@ -6,6 +6,7 @@ import {NgForm} from "@angular/forms";
 import {CreateEmployeeRequest} from "../../shared/models/create-employee-request";
 import {DepartmentResponse} from "../../shared/models/department-response";
 import {DepartmentService} from "../../shared/services/department.service";
+import {UpdateEmployeeRequest} from "../../shared/models/update-employee-request";
 
 @Component({
   selector: 'app-employee',
@@ -16,12 +17,14 @@ export class EmployeeComponent implements OnInit {
   employees: EmployeeResponse[] | null = [];
   newEmployee: CreateEmployeeRequest = new CreateEmployeeRequest();
   departments: DepartmentResponse[] | null = [];
+  editedEmployee: UpdateEmployeeRequest = new UpdateEmployeeRequest();
 
   constructor(private employeeService: EmployeeService,
               private departmentService: DepartmentService) {
   }
 
   @ViewChild('addEmployeeForm', {static: false}) addEmployee: NgForm;
+  @ViewChild('editEmployeeForm', {static: false}) editEmployee: NgForm;
 
   ngOnInit(): void {
     this.getEmployees();
@@ -54,6 +57,21 @@ export class EmployeeComponent implements OnInit {
     );
   }
 
+  onUpdateEmployee(form: NgForm): void {
+    this.employeeService.editEmployee(this.editedEmployee).subscribe(
+      (response: HttpResponse<EmployeeResponse>) => {
+        console.log(response.body);
+        alert('editEmployee -> HttpStatus: ' + response.status + ' -> ' + response.body);
+        this.onClear(form);
+        document.getElementById('closeEditEmployeeModal')?.click();
+        this.ngOnInit();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   onClear(form: NgForm): void {
     form.reset();
     form.form.markAsPristine();
@@ -69,5 +87,20 @@ export class EmployeeComponent implements OnInit {
         alert(error.message);
       }
     )
+  }
+
+  onSelectEmployeeIdToEdit(editedEmployeeId: number): void {
+    this.employeeService.getEmployee(editedEmployeeId).subscribe(
+      (response: HttpResponse<EmployeeResponse>) => {
+        this.editedEmployee.id = response.body?.id;
+        this.editedEmployee.firstName = response.body?.firstName;
+        this.editedEmployee.lastName = response.body?.lastName;
+        this.editedEmployee.departmentId = response.body?.department.id;
+        console.log('getEmployee -> HttpStatus: ' + response.status + ' -> ' + response.body);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }

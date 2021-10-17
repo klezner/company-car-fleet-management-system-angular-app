@@ -4,6 +4,7 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {EmployeeResponse} from "../models/employee-response";
 import {CreateEmployeeRequest} from "../models/create-employee-request";
+import {UpdateEmployeeRequest} from "../models/update-employee-request";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,17 @@ export class EmployeeService {
 
   postEmployee(newEmployee: CreateEmployeeRequest): Observable<HttpResponse<EmployeeResponse>> {
     return this.http.post<EmployeeResponse>(`${this.apiServerUrl}/${this.employeePath}`, newEmployee, {
+      observe: 'response',
+      headers: {'Content-Type': 'application/json'}
+    });
+  }
+
+  getEmployee(id: number): Observable<HttpResponse<EmployeeResponse>> {
+    return this.http.get<EmployeeResponse>(`${this.apiServerUrl}/${this.employeePath}/${id}`, {observe: 'response'});
+  }
+
+  editEmployee(updatedEmployee: UpdateEmployeeRequest): Observable<HttpResponse<EmployeeResponse>> {
+    return this.http.put<EmployeeResponse>(`${this.apiServerUrl}/${this.employeePath}`, updatedEmployee, {
       observe: 'response',
       headers: {'Content-Type': 'application/json'}
     });
