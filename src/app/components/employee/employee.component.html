@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col col-12">
         <div class="d-flex p-2 border-bottom mt-3">
-          <button class="btn btn-lg btn-outline-primary text-center">
+          <button class="btn btn-lg btn-outline-primary text-center" data-toggle="modal"
+                  data-target="#addEmployeeModal" (click)="getDepartments()">
             <span><i class="fa fa-users"></i></span>
             <br>Dodaj pracownika
           </button>
@@ -71,3 +72,56 @@
     </table>
   </div>
 </ng-template>
+
+<!-- addEmployeeModal -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addEmployeeModalLabel">Dodaj pracownika</h5>
+        <button type="button" id="closeAddEmployeeModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(addEmployeeForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #addEmployeeForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="addFirstName" class="form-label">Imię:</label>
+            <input id="addFirstName" type="text" class="form-control" name="addFirstName" required
+                   [(ngModel)]="newEmployee.firstName" #firstName="ngModel">
+            <div class="text-danger" *ngIf="firstName.errors && (firstName.touched || firstName.dirty)">
+              <small *ngIf="firstName.errors.required">Imię jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addLastName" class="form-label">Nazwisko:</label>
+            <input id="addLastName" type="text" class="form-control" name="addLastName" required
+                   [(ngModel)]="newEmployee.lastName" #lastName="ngModel">
+            <div class="text-danger" *ngIf="lastName.errors && (lastName.touched || lastName.dirty)">
+              <small *ngIf="lastName.errors.required">Nazwisko jest wymagane</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addDepartmentId" class="form-label">Departament:</label>
+            <select id="addDepartmentId" type="number" class="form-control" name="addDepartmentId" required
+                    [(ngModel)]="newEmployee.departmentId" #departmentId="ngModel">
+              <option *ngFor="let department of departments" [ngValue]="department.id">{{department.name}}</option>
+            </select>
+            <div class="text-danger" *ngIf="departmentId.errors && (departmentId.touched || departmentId.dirty)">
+              <small *ngIf="departmentId.errors.required">Departament jest wymagany</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(addEmployeeForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!addEmployeeForm.valid" type="submit" (click)="onAddEmployee(addEmployeeForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
