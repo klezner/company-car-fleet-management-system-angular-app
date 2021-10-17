@@ -1,0 +1,73 @@
+<div class="container-fluid employee-container">
+  <div class="d-flex flex-column">
+    <div class="row">
+      <div class="col col-12">
+        <div class="d-flex p-2 border-bottom mt-3">
+          <button class="btn btn-lg btn-outline-primary text-center">
+            <span><i class="fa fa-users"></i></span>
+            <br>Dodaj pracownika
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification for no employees -->
+    <div class="row">
+      <div *ngIf="employees?.length == 0 else noEmptyList" class="p-2 col-lg-12 col-md-12 col-xl-12">
+        <div class="alert alert-warning" role="alert">
+          <h4 class="alert-heading text-center"><i class="fa fa-exclamation-triangle"></i> BRAK PRACOWNIKÓW W BAZIE!
+          </h4>
+          <p class="text-center">Naciśnij przycisk 'Dodaj pracownika' aby dodać nowego pracownika.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Return to main page button -->
+    <div class="row">
+      <div class="col col-12 d-flex flex-row-reverse">
+        <a href="/">
+          <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do strony głównej</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- List of employees -->
+<ng-template #noEmptyList>
+  <div class="col col=12">
+    <h1 class="display-4 fw-bold lh-1 border-bottom">Lista pracowników:</h1>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr class="table-dark">
+        <th scope="col" class="text-center">#</th>
+        <th scope="col" class="text-center">Imię</th>
+        <th scope="col" class="text-center">Nazwisko</th>
+        <th scope="col" class="text-center">Departament</th>
+        <th scope="col" class="text-center">Firma</th>
+        <th scope="col" class="text-center">Akcje</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let employee of employees">
+        <th scope="row" class="text-center align-middle">{{employee.id}}</th>
+        <td class="text-center align-middle">{{employee.firstName}}</td>
+        <td class="text-center align-middle">{{employee.lastName}}</td>
+        <td class="text-center align-middle">{{employee.department.name}}</td>
+        <td class="text-center align-middle">{{employee.department.company.name}}</td>
+        <td>
+          <div class="d-flex justify-content-end btn-group" role="group">
+            <a href="/department/{{employee.id}}">
+              <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
+            </a>
+            <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i>
+              Edytuj
+            </button>
+            <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
