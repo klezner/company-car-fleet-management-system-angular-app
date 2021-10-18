@@ -9,6 +9,7 @@ import {DepartmentDetailsComponent} from "./components/department-details/depart
 import {EmployeeComponent} from "./components/employee/employee.component";
 import {EmployeeDetailsComponent} from "./components/employee-details/employee-details.component";
 import {FleetCardComponent} from "./components/fleet-card/fleet-card.component";
+import {FleetCardDetailsComponent} from "./components/fleet-card-details/fleet-card-details.component";
 
 const routes: Routes = [
   {path: "cars", component: CarComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: "department/:id", component: DepartmentDetailsComponent},
   {path: "employees", component: EmployeeComponent},
   {path: "employee/:id", component: EmployeeDetailsComponent},
-  {path: "fleetcards", component: FleetCardComponent}
+  {path: "fleetcards", component: FleetCardComponent},
+  {path: "fleetcard/:id", component: FleetCardDetailsComponent}
 ];
 
 @NgModule({

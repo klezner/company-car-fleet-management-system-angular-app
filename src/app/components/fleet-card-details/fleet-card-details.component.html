@@ -1,0 +1,70 @@
+<div class="container my-3">
+  <div class="row p-2 pe-lg-0 pt-lg-2 align-items-center rounded-3 border shadow">
+    <div class="p-2 p-lg-5 pt-lg-3 col col-12">
+      <!-- Details page title -->
+      <div class="row">
+        <div class="col col-12">
+          <h1 class="display-4 fw-bold lh-1 border-bottom">Szczegóły Karty Floty:</h1>
+        </div>
+      </div>
+      <!-- Details page -->
+      <div class="row">
+        <!-- FleetCard details -->
+        <div class="col col-3">
+          <table class="table table-bordered mt-5">
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Numer</th>
+              <td class="text-center align-middle">{{fleetCard?.number}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Data ważności</th>
+              <td class="text-center align-middle">{{fleetCard?.expirationDate}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Typ</th>
+              <td class="text-center align-middle">{{fleetCard?.type}}</td>
+            </tr>
+            <!--            <tr>-->
+            <!--              <th scope="row" class="table-dark text-center align-middle">Pojazd</th>-->
+            <!--              <td class="text-center align-middle">[{{fleetCard?.car?.registrationNumber}}-->
+            <!--                ] {{fleetCard?.car?.brand}} {{fleetCard?.car?.model}}</td>-->
+            <!--            </tr>-->
+          </table>
+        </div>
+        <!-- FleetCard car -->
+        <div class="col col-8 offset-1">
+          <div class="row">
+            <div class="col col-12">
+              <h3 class="display-5 lh-1 border-bottom mt-3">Pojazd:</h3>
+              <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr class="table-dark">
+                  <th scope="col" class="text-center">Nr rejestracyjny</th>
+                  <th scope="col" class="text-center">Marka</th>
+                  <th scope="col" class="text-center">Model</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td class="text-center align-middle">{{fleetCard?.car?.registrationNumber}}</td>
+                  <td class="text-center align-middle">{{fleetCard?.car?.brand}}</td>
+                  <td class="text-center align-middle">{{fleetCard?.car?.model}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Return to fleet card list page button -->
+          <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+              <a href="/fleetcards">
+                <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do listy Kart Floty
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

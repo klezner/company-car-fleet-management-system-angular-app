@@ -20,30 +20,24 @@
               <th scope="row" class="table-dark text-center align-middle">Nazwisko</th>
               <td class="text-center align-middle">{{employee?.lastName}}</td>
             </tr>
-            <tr>
-              <th scope="row" class="table-dark text-center align-middle">Firma</th>
-              <td class="text-center align-middle">{{employee?.department?.company?.name}}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="table-dark text-center align-middle">Departament</th>
-              <td class="text-center align-middle">{{employee?.department?.name}}</td>
-            </tr>
           </table>
         </div>
-        <!-- Employees X -->
+        <!-- Employee department -->
         <div class="col col-8 offset-1">
           <div class="row">
             <div class="col col-12">
-              <h3 class="display-5 lh-1 border-bottom mt-3">X:</h3>
+              <h3 class="display-5 lh-1 border-bottom mt-3">Firma/Departament:</h3>
               <table class="table table-bordered">
                 <thead class="thead-dark">
                 <tr class="table-dark">
-                  <th scope="col" class="text-center">#</th>
+                  <th scope="col" class="text-center">Firma</th>
+                  <th scope="col" class="text-center">Departament</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                  <th scope="row" class="text-center align-middle">id</th>
+                  <td class="text-center align-middle">{{employee?.department?.company?.name}}</td>
+                  <td class="text-center align-middle">{{employee?.department?.name}}</td>
                 </tr>
                 </tbody>
               </table>

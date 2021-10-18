@@ -20,6 +20,7 @@ import {EmployeeService} from "./shared/services/employee.service";
 import {EmployeeDetailsComponent} from './components/employee-details/employee-details.component';
 import {FleetCardComponent} from './components/fleet-card/fleet-card.component';
 import {FleetCardService} from "./shared/services/fleet-card.service";
+import {FleetCardDetailsComponent} from './components/fleet-card-details/fleet-card-details.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {FleetCardService} from "./shared/services/fleet-card.service";
     DepartmentDetailsComponent,
     EmployeeComponent,
     EmployeeDetailsComponent,
-    FleetCardComponent
+    FleetCardComponent,
+    FleetCardDetailsComponent
   ],
   imports: [
     BrowserModule,
