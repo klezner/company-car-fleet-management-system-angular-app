@@ -17,6 +17,7 @@ import {DepartmentService} from "./shared/services/department.service";
 import {DepartmentDetailsComponent} from './components/department-details/department-details.component';
 import {EmployeeComponent} from './components/employee/employee.component';
 import {EmployeeService} from "./shared/services/employee.service";
+import {EmployeeDetailsComponent} from './components/employee-details/employee-details.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {EmployeeService} from "./shared/services/employee.service";
     CompanyDetailsComponent,
     DepartmentComponent,
     DepartmentDetailsComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    EmployeeDetailsComponent
   ],
   imports: [
     BrowserModule,

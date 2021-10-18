@@ -29,5 +29,4 @@ export class DepartmentDetailsComponent implements OnInit {
       }
     );
   }
-
 }

@@ -44,8 +44,8 @@
         <th scope="col" class="text-center">#</th>
         <th scope="col" class="text-center">Imię</th>
         <th scope="col" class="text-center">Nazwisko</th>
-        <th scope="col" class="text-center">Departament</th>
         <th scope="col" class="text-center">Firma</th>
+        <th scope="col" class="text-center">Departament</th>
         <th scope="col" class="text-center">Akcje</th>
       </tr>
       </thead>
@@ -54,11 +54,11 @@
         <th scope="row" class="text-center align-middle">{{employee.id}}</th>
         <td class="text-center align-middle">{{employee.firstName}}</td>
         <td class="text-center align-middle">{{employee.lastName}}</td>
-        <td class="text-center align-middle">{{employee.department.name}}</td>
         <td class="text-center align-middle">{{employee.department.company.name}}</td>
+        <td class="text-center align-middle">{{employee.department.name}}</td>
         <td>
           <div class="d-flex justify-content-end btn-group" role="group">
-            <a href="/department/{{employee.id}}">
+            <a href="/employee/{{employee.id}}">
               <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
             </a>
             <button class="btn btn-outline-warning m-1" data-toggle="modal" data-target="#editEmployeeModal"

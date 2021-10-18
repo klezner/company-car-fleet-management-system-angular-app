@@ -1,0 +1,65 @@
+<div class="container my-3">
+  <div class="row p-2 pe-lg-0 pt-lg-2 align-items-center rounded-3 border shadow">
+    <div class="p-2 p-lg-5 pt-lg-3 col col-12">
+      <!-- Details page title -->
+      <div class="row">
+        <div class="col col-12">
+          <h1 class="display-4 fw-bold lh-1 border-bottom">Szczegóły pracownika:</h1>
+        </div>
+      </div>
+      <!-- Details page -->
+      <div class="row">
+        <!-- Employee details -->
+        <div class="col col-3">
+          <table class="table table-bordered mt-5">
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Imię</th>
+              <td class="text-center align-middle">{{employee?.firstName}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Nazwisko</th>
+              <td class="text-center align-middle">{{employee?.lastName}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Firma</th>
+              <td class="text-center align-middle">{{employee?.department?.company?.name}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Departament</th>
+              <td class="text-center align-middle">{{employee?.department?.name}}</td>
+            </tr>
+          </table>
+        </div>
+        <!-- Employees X -->
+        <div class="col col-8 offset-1">
+          <div class="row">
+            <div class="col col-12">
+              <h3 class="display-5 lh-1 border-bottom mt-3">X:</h3>
+              <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr class="table-dark">
+                  <th scope="col" class="text-center">#</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <th scope="row" class="text-center align-middle">id</th>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Return to employee list page button -->
+          <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+              <a href="/employees">
+                <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do listy pracowników
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
