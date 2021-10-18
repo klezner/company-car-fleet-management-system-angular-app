@@ -18,6 +18,8 @@ import {DepartmentDetailsComponent} from './components/department-details/depart
 import {EmployeeComponent} from './components/employee/employee.component';
 import {EmployeeService} from "./shared/services/employee.service";
 import {EmployeeDetailsComponent} from './components/employee-details/employee-details.component';
+import {FleetCardComponent} from './components/fleet-card/fleet-card.component';
+import {FleetCardService} from "./shared/services/fleet-card.service";
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import {EmployeeDetailsComponent} from './components/employee-details/employee-d
     DepartmentComponent,
     DepartmentDetailsComponent,
     EmployeeComponent,
-    EmployeeDetailsComponent
+    EmployeeDetailsComponent,
+    FleetCardComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import {EmployeeDetailsComponent} from './components/employee-details/employee-d
     CarService,
     CompanyService,
     DepartmentService,
-    EmployeeService
+    EmployeeService,
+    FleetCardService
   ],
   bootstrap: [AppComponent]
 })
