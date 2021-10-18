@@ -62,7 +62,8 @@
             <a href="/fleetcard/{{fleetCard.id}}">
               <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
             </a>
-            <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i>
+            <button class="btn btn-outline-warning m-1" data-toggle="modal" data-target="#editFleetCardModal"
+                    (click)="onSelectFleetCardIdToEdit(fleetCard.id); getCars()"><i class="fa fa-edit"></i>
               Edytuj
             </button>
             <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
@@ -129,6 +130,68 @@
           Wyczyść
         </button>
         <button [disabled]="!addFleetCardForm.valid" type="submit" (click)="onAddFleetCard(addFleetCardForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- editFleetCardModal -->
+<div class="modal fade" id="editFleetCardModal" tabindex="-1" role="dialog" aria-labelledby="editFleetCardModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editFleetCardModalLabel">Edytuj Kartę Floty nr {{editedFleetCard.id}}</h5>
+        <button type="button" id="closeEditFleetCardModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(editFleetCardForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #editFleetCardForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="editFirstName" class="form-label">Numer:</label>
+            <input id="editFirstName" type="text" class="form-control" name="editFirstName" required
+                   [(ngModel)]="editedFleetCard.number" #number="ngModel">
+            <div class="text-danger" *ngIf="number.errors && (number.touched || number.dirty)">
+              <small *ngIf="number.errors.required">Numer jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editExpirationDate" class="form-label">Data ważności:</label>
+            <input id="editExpirationDate" type="date" class="form-control" name="editExpirationDate" required
+                   [(ngModel)]="editedFleetCard.expirationDate" #expirationDate="ngModel">
+            <div class="text-danger" *ngIf="expirationDate.errors && (expirationDate.touched || expirationDate.dirty)">
+              <small *ngIf="expirationDate.errors.required">Data ważności jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editType" class="form-label">Typ:</label>
+            <input id="editType" type="text" class="form-control" name="editType" required
+                   [(ngModel)]="editedFleetCard.type" #type="ngModel">
+            <div class="text-danger" *ngIf="type.errors && (type.touched || type.dirty)">
+              <small *ngIf="type.errors.required">Typ jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editCarId" class="form-label">Pojazd:</label>
+            <select id="editCarId" type="number" class="form-control" name="editCarId" required
+                    [(ngModel)]="editedFleetCard.carId" #carId="ngModel">
+              <option *ngFor="let car of cars" [ngValue]="car.id">[{{car.registrationNumber}}
+                ] {{car.brand}} {{car.model}}</option>
+            </select>
+            <div class="text-danger" *ngIf="carId.errors && (carId.touched || carId.dirty)">
+              <small *ngIf="carId.errors.required">Pojazd jest wymagany</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(editFleetCardForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!editFleetCardForm.valid" type="submit" (click)="onUpdateFleetCard(editFleetCardForm)"
                 class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
         </button>
       </div>

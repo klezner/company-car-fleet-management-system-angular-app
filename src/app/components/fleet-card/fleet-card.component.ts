@@ -6,6 +6,7 @@ import {NgForm} from "@angular/forms";
 import {CreateFleetCardRequest} from "../../shared/models/create-fleet-card-request";
 import {CarService} from "../../shared/services/car.service";
 import {CarResponse} from "../../shared/models/car-response";
+import {UpdateFleetCardRequest} from "../../shared/models/update-fleet-card-request";
 
 @Component({
   selector: 'app-fleet-card',
@@ -16,12 +17,14 @@ export class FleetCardComponent implements OnInit {
   fleetCards: FleetCardResponse[] | null = [];
   newFleetCard: CreateFleetCardRequest = new CreateFleetCardRequest();
   cars: CarResponse[] | null = [];
+  editedFleetCard: UpdateFleetCardRequest = new UpdateFleetCardRequest();
 
   constructor(private fleetCardService: FleetCardService,
               private carService: CarService) {
   }
 
   @ViewChild('addFleetCardForm', {static: false}) addFleetCard: NgForm;
+  @ViewChild('editFleetCardForm', {static: false}) editFleetCard: NgForm;
 
   ngOnInit(): void {
     this.getFleetCards();
@@ -54,6 +57,21 @@ export class FleetCardComponent implements OnInit {
     );
   }
 
+  onUpdateFleetCard(form: NgForm): void {
+    this.fleetCardService.editFleetCard(this.editedFleetCard).subscribe(
+      (response: HttpResponse<FleetCardResponse>) => {
+        console.log(response.body);
+        alert('editFleetCard -> HttpStatus: ' + response.status + ' -> ' + response.body);
+        this.onClear(form);
+        document.getElementById('closeEditFleetCardModal')?.click();
+        this.ngOnInit();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   onClear(form: NgForm): void {
     form.reset();
     form.form.markAsPristine();
@@ -64,6 +82,22 @@ export class FleetCardComponent implements OnInit {
       (response: HttpResponse<CarResponse[]>) => {
         this.cars = response.body;
         console.log('getCars -> HttpStatus: ' + response.status + ' -> ' + response.body)
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  onSelectFleetCardIdToEdit(editedFleetCardId: number): void {
+    this.fleetCardService.getFleetCard(editedFleetCardId).subscribe(
+      (response: HttpResponse<FleetCardResponse>) => {
+        this.editedFleetCard.id = response.body?.id;
+        this.editedFleetCard.number = response.body?.number;
+        this.editedFleetCard.expirationDate = response.body?.expirationDate;
+        this.editedFleetCard.type = response.body?.type;
+        this.editedFleetCard.carId = response.body?.car.id;
+        console.log('getFleetCard -> HttpStatus: ' + response.status + ' -> ' + response.body);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
