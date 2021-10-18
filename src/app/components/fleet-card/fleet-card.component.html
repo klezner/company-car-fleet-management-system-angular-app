@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col col-12">
         <div class="d-flex p-2 border-bottom mt-3">
-          <button class="btn btn-lg btn-outline-primary text-center">
+          <button class="btn btn-lg btn-outline-primary text-center" data-toggle="modal"
+                  data-target="#addFleetCardModal" (click)="getCars()">
             <span><i class="fa fa-credit-card"></i></span>
             <br>Dodaj Kartę Floty
           </button>
@@ -72,3 +73,65 @@
     </table>
   </div>
 </ng-template>
+
+<!-- addFleetCardModal -->
+<div class="modal fade" id="addFleetCardModal" tabindex="-1" role="dialog" aria-labelledby="addFleetCardModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addFleetCardModalLabel">Dodaj Kartę Floty</h5>
+        <button type="button" id="closeAddFleetCardModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(addFleetCardForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #addFleetCardForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="addNumber" class="form-label">Numer:</label>
+            <input id="addNumber" type="text" class="form-control" name="addNumber" required
+                   [(ngModel)]="newFleetCard.number" #number="ngModel">
+            <div class="text-danger" *ngIf="number.errors && (number.touched || number.dirty)">
+              <small *ngIf="number.errors.required">Numer jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addExpirationDate" class="form-label">Data ważności:</label>
+            <input id="addExpirationDate" type="date" class="form-control" name="addExpirationDate" required
+                   [(ngModel)]="newFleetCard.expirationDate" #expirationDate="ngModel">
+            <div class="text-danger" *ngIf="expirationDate.errors && (expirationDate.touched || expirationDate.dirty)">
+              <small *ngIf="expirationDate.errors.required">Data ważności jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addType" class="form-label">Typ:</label>
+            <input id="addType" type="text" class="form-control" name="addType" required
+                   [(ngModel)]="newFleetCard.type" #type="ngModel">
+            <div class="text-danger" *ngIf="type.errors && (type.touched || type.dirty)">
+              <small *ngIf="type.errors.required">Typ jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addCarId" class="form-label">Pojazd:</label>
+            <select id="addCarId" type="number" class="form-control" name="addCarId" required
+                    [(ngModel)]="newFleetCard.carId" #carId="ngModel">
+              <option *ngFor="let car of cars" [ngValue]="car.id">[{{car.registrationNumber}}
+                ] {{car.brand}} {{car.model}}</option>
+            </select>
+            <div class="text-danger" *ngIf="carId.errors && (carId.touched || carId.dirty)">
+              <small *ngIf="carId.errors.required">Pojazd jest wymagany</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(addFleetCardForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!addFleetCardForm.valid" type="submit" (click)="onAddFleetCard(addFleetCardForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
