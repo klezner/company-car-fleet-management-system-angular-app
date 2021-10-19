@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col col-12">
         <div class="d-flex p-2 border-bottom mt-3">
-          <button class="btn btn-lg btn-outline-primary text-center">
+          <button class="btn btn-lg btn-outline-primary text-center" data-toggle="modal"
+                  data-target="#addRefuelingModal" (click)="getTrips()">
             <span><i class="fa fa-plug"></i></span>
             <br>Dodaj tankowanie
           </button>
@@ -73,3 +74,82 @@
     </table>
   </div>
 </ng-template>
+
+<!-- addRefuelingModal -->
+<div class="modal fade" id="addRefuelingModal" tabindex="-1" role="dialog" aria-labelledby="addRefuelingModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addRefuelingModalLabel">Dodaj tankowanie</h5>
+        <button type="button" id="closeAddRefuelingModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(addRefuelingForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #addRefuelingForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="addDate" class="form-label">Data:</label>
+            <input id="addDate" type="date" class="form-control" name="addDate" required
+                   [(ngModel)]="newRefueling.date" #date="ngModel">
+            <div class="text-danger" *ngIf="date.errors && (date.touched || date.dirty)">
+              <small *ngIf="date.errors.required">Data jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addMeterStatus" class="form-label">Stan licznika:</label>
+            <input id="addMeterStatus" type="number" class="form-control" name="addMeterStatus"
+                   required min="0" max="999999" step="1"
+                   [(ngModel)]="newRefueling.meterStatus" #meterStatus="ngModel">
+            <div class="text-danger" *ngIf="meterStatus.errors && (meterStatus.touched || meterStatus.dirty)">
+              <small *ngIf="meterStatus.errors.required">Stan licznika jest wymagany</small>
+              <small *ngIf="meterStatus.errors.min">Stan licznika musi być większy niż 0</small>
+              <small *ngIf="meterStatus.errors.max">Stan licznika musi być mniejszy niż 999999</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addFuelAmount" class="form-label">Ilość paliwa:</label>
+            <input id="addFuelAmount" type="number" class="form-control" name="addFuelAmount"
+                   required min="0" max="100" step="0.01"
+                   [(ngModel)]="newRefueling.fuelAmount" #fuelAmount="ngModel">
+            <div class="text-danger" *ngIf="fuelAmount.errors && (fuelAmount.touched || fuelAmount.dirty)">
+              <small *ngIf="fuelAmount.errors.required">Ilość paliwa jest wymagana</small>
+              <small *ngIf="fuelAmount.errors.min">Ilość paliwa musi być większa niż 0</small>
+              <small *ngIf="fuelAmount.errors.max">Ilość paliwa musi być mniejsza niż 100</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addRefuelingCost" class="form-label">Koszt:</label>
+            <input id="addRefuelingCost" type="number" class="form-control" name="addRefuelingCost"
+                   required min="0" max="1000" step="0.01"
+                   [(ngModel)]="newRefueling.refuelingCost" #refuelingCost="ngModel">
+            <div class="text-danger" *ngIf="refuelingCost.errors && (refuelingCost.touched || refuelingCost.dirty)">
+              <small *ngIf="refuelingCost.errors.required">Koszt jest wymagany</small>
+              <small *ngIf="refuelingCost.errors.min">Koszt musi być większy niż 0</small>
+              <small *ngIf="refuelingCost.errors.max">Koszt musi być mniejszy niż 1000</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addTripId" class="form-label">Wyjazd:</label>
+            <select id="addTripId" type="number" class="form-control" name="addTripId" required
+                    [(ngModel)]="newRefueling.tripId" #tripId="ngModel">
+              <option *ngFor="let trip of trips" [ngValue]="trip.id">{{trip.departureDate}}
+                - {{trip.returnDate}}</option>
+            </select>
+            <div class="text-danger" *ngIf="tripId.errors && (tripId.touched || tripId.dirty)">
+              <small *ngIf="tripId.errors.required">Wyjazd jest wymagany</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(addRefuelingForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!addRefuelingForm.valid" type="submit" (click)="onAddRefueling(addRefuelingForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

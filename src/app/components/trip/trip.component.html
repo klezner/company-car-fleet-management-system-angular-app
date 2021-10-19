@@ -113,20 +113,25 @@
           <div class="form-group mb-3">
             <label for="addDepartureMeterStatus" class="form-label">Stan licznika przed:</label>
             <input id="addDepartureMeterStatus" type="number" class="form-control" name="addDepartureMeterStatus"
-                   required
+                   required min="0" max="999999" step="1"
                    [(ngModel)]="newTrip.departureMeterStatus" #departureMeterStatus="ngModel">
             <div class="text-danger"
                  *ngIf="departureMeterStatus.errors && (departureMeterStatus.touched || departureMeterStatus.dirty)">
               <small *ngIf="departureMeterStatus.errors.required">Stan licznika przed jest wymagany</small>
+              <small *ngIf="departureMeterStatus.errors.min">Stan licznika przed musi być większy niż 0</small>
+              <small *ngIf="departureMeterStatus.errors.max">Stan licznika przed musi być mniejszy niż 999999</small>
             </div>
           </div>
           <div class="form-group mb-3">
             <label for="addReturnMeterStatus" class="form-label">Stan licznika po:</label>
-            <input id="addReturnMeterStatus" type="number" class="form-control" name="addReturnMeterStatus" required
+            <input id="addReturnMeterStatus" type="number" class="form-control" name="addReturnMeterStatus"
+                   required min="0" max="999999" step="1"
                    [(ngModel)]="newTrip.returnMeterStatus" #returnMeterStatus="ngModel">
             <div class="text-danger"
                  *ngIf="returnMeterStatus.errors && (returnMeterStatus.touched || returnMeterStatus.dirty)">
               <small *ngIf="returnMeterStatus.errors.required">Stan licznika po jest wymagany</small>
+              <small *ngIf="returnMeterStatus.errors.min">Stan licznika po musi być większy niż 0</small>
+              <small *ngIf="returnMeterStatus.errors.max">Stan licznika po musi być mniejszy niż 999999</small>
             </div>
           </div>
           <div class="form-group mb-3">
