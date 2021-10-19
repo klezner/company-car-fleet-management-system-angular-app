@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col col-12">
         <div class="d-flex p-2 border-bottom mt-3">
-          <button class="btn btn-lg btn-outline-primary text-center">
+          <button class="btn btn-lg btn-outline-primary text-center" data-toggle="modal"
+                  data-target="#addCarWorkshopModal">
             <span><i class="fa fa-wrench"></i></span>
             <br>Dodaj warsztat
           </button>
@@ -72,3 +73,73 @@
     </table>
   </div>
 </ng-template>
+
+<!-- addCarWorkshopModal -->
+<div class="modal fade" id="addCarWorkshopModal" tabindex="-1" role="dialog" aria-labelledby="addCarWorkshopModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCarWorkshopModalLabel">Dodaj warsztat</h5>
+        <button type="button" id="closeAddCarWorkshopModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(addCarWorkshopForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #addCarWorkshopForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="addName" class="form-label">Nazwa:</label>
+            <input id="addName" type="text" class="form-control" name="addName" required
+                   [(ngModel)]="newCarWorkshop.name" #name="ngModel">
+            <div class="text-danger" *ngIf="name.errors && (name.touched || name.dirty)">
+              <small *ngIf="name.errors.required">Nazwa jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addZipCode" class="form-label">Kod pocztowy:</label>
+            <input id="addZipCode" type="text" class="form-control" name="addZipCode" required
+                   [(ngModel)]="newCarWorkshop.zipCode" #zipCode="ngModel">
+            <div class="text-danger" *ngIf="zipCode.errors && (zipCode.touched || zipCode.dirty)">
+              <small *ngIf="zipCode.errors.required">Kod pocztowy jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addCity" class="form-label">Miasto:</label>
+            <input id="addCity" type="text" class="form-control" name="addCity" required
+                   [(ngModel)]="newCarWorkshop.city" #city="ngModel">
+            <div class="text-danger"
+                 *ngIf="city.errors && (city.touched || city.dirty)">
+              <small *ngIf="city.errors.required">Miasto jest wymagane</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addStreet" class="form-label">Ulica:</label>
+            <input id="addStreet" type="text" class="form-control" name="addStreet" required
+                   [(ngModel)]="newCarWorkshop.street" #street="ngModel">
+            <div class="text-danger"
+                 *ngIf="street.errors && (street.touched || street.dirty)">
+              <small *ngIf="street.errors.required">Ulica jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addNumber" class="form-label">Numer:</label>
+            <input id="addNumber" type="text" class="form-control" name="addNumber" required
+                   [(ngModel)]="newCarWorkshop.number" #number="ngModel">
+            <div class="text-danger"
+                 *ngIf="number.errors && (number.touched || number.dirty)">
+              <small *ngIf="number.errors.required">Numer jest wymagany</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(addCarWorkshopForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!addCarWorkshopForm.valid" type="submit" (click)="onAddCarWorkshop(addCarWorkshopForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
