@@ -27,6 +27,8 @@ import {TripDetailsComponent} from './components/trip-details/trip-details.compo
 import {RefuelingComponent} from './components/refueling/refueling.component';
 import {RefuelingService} from "./shared/services/refueling.service";
 import {RefuelingDetailsComponent} from './components/refueling-details/refueling-details.component';
+import {CarWorkshopComponent} from './components/car-workshop/car-workshop.component';
+import {CarWorkshopService} from "./shared/services/car-workshop.service";
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import {RefuelingDetailsComponent} from './components/refueling-details/refuelin
     TripComponent,
     TripDetailsComponent,
     RefuelingComponent,
-    RefuelingDetailsComponent
+    RefuelingDetailsComponent,
+    CarWorkshopComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ import {RefuelingDetailsComponent} from './components/refueling-details/refuelin
     EmployeeService,
     FleetCardService,
     TripService,
-    RefuelingService
+    RefuelingService,
+    CarWorkshopService
   ],
   bootstrap: [AppComponent]
 })
