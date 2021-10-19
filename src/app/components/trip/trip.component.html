@@ -69,7 +69,8 @@
             <a href="/trips/{{trip.id}}">
               <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
             </a>
-            <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i>
+            <button class="btn btn-outline-warning m-1" data-toggle="modal" data-target="#editTripModal"
+                    (click)="onSelectTripIdToEdit(trip.id); getCars(); getEmployees()"><i class="fa fa-edit"></i>
               Edytuj
             </button>
             <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
@@ -164,6 +165,96 @@
           Wyczyść
         </button>
         <button [disabled]="!addTripForm.valid" type="submit" (click)="onAddTrip(addTripForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- editTripModal -->
+<div class="modal fade" id="editTripModal" tabindex="-1" role="dialog" aria-labelledby="editTripModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editTripModalLabel">Edytuj wyjazd nr {{editedTrip.id}}</h5>
+        <button type="button" id="closeEditTripModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(editTripForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #editTripForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="editDepartureDate" class="form-label">Data wyjazdu:</label>
+            <input id="editDepartureDate" type="date" class="form-control" name="editDepartureDate" required
+                   [(ngModel)]="editedTrip.departureDate" #departureDate="ngModel">
+            <div class="text-danger" *ngIf="departureDate.errors && (departureDate.touched || departureDate.dirty)">
+              <small *ngIf="departureDate.errors.required">Data wyjazdu jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editReturnDate" class="form-label">Data powrotu:</label>
+            <input id="editReturnDate" type="date" class="form-control" name="editReturnDate" required
+                   [(ngModel)]="editedTrip.returnDate" #returnDate="ngModel">
+            <div class="text-danger" *ngIf="returnDate.errors && (returnDate.touched || returnDate.dirty)">
+              <small *ngIf="returnDate.errors.required">Data powrotu jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editDepartureMeterStatus" class="form-label">Stan licznika przed:</label>
+            <input id="editDepartureMeterStatus" type="number" class="form-control" name="editDepartureMeterStatus"
+                   required
+                   [(ngModel)]="editedTrip.departureMeterStatus" #departureMeterStatus="ngModel">
+            <div class="text-danger"
+                 *ngIf="departureMeterStatus.errors && (departureMeterStatus.touched || departureMeterStatus.dirty)">
+              <small *ngIf="departureMeterStatus.errors.required">Stan licznika przed jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editReturnMeterStatus" class="form-label">Stan licznika po:</label>
+            <input id="editReturnMeterStatus" type="number" class="form-control" name="editReturnMeterStatus" required
+                   [(ngModel)]="editedTrip.returnMeterStatus" #returnMeterStatus="ngModel">
+            <div class="text-danger"
+                 *ngIf="returnMeterStatus.errors && (returnMeterStatus.touched || returnMeterStatus.dirty)">
+              <small *ngIf="returnMeterStatus.errors.required">Stan licznika po jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editComment" class="form-label">Komentarz:</label>
+            <input id="editComment" type="text" class="form-control" name="editComment"
+                   [(ngModel)]="editedTrip.comments" #comments="ngModel">
+          </div>
+          <div class="form-group mb-3">
+            <label for="editCarId" class="form-label">Pojazd:</label>
+            <select id="editCarId" type="number" class="form-control" name="editCarId" required
+                    [(ngModel)]="editedTrip.carId" #carId="ngModel">
+              <option *ngFor="let car of cars" [ngValue]="car.id">[{{car.registrationNumber}}
+                ] {{car.brand}} {{car.model}}</option>
+            </select>
+            <div class="text-danger" *ngIf="carId.errors && (carId.touched || carId.dirty)">
+              <small *ngIf="carId.errors.required">Pojazd jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editEmployeeId" class="form-label">Pracownik:</label>
+            <select id="editEmployeeId" type="number" class="form-control" name="editEmployeeId" required
+                    [(ngModel)]="editedTrip.employeeId" #employeeId="ngModel">
+              <option *ngFor="let employee of employees" [ngValue]="employee.id">[{{employee.department.company.name}}
+                ] [{{employee.department.abbreviation}}] {{employee.firstName}} {{employee.lastName}}
+              </option>
+            </select>
+            <div class="text-danger" *ngIf="carId.errors && (carId.touched || carId.dirty)">
+              <small *ngIf="carId.errors.required">Pojazd jest wymagany</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(editTripForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!editTripForm.valid" type="submit" (click)="onUpdateTrip(editTripForm)"
                 class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
         </button>
       </div>

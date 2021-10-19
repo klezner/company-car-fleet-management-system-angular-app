@@ -8,6 +8,7 @@ import {CreateTripRequest} from 'src/app/shared/models/create-trip-request';
 import {CarService} from "../../shared/services/car.service";
 import {EmployeeService} from "../../shared/services/employee.service";
 import {EmployeeResponse} from "../../shared/models/employee-response";
+import {UpdateTripRequest} from "../../shared/models/update-trip-request";
 
 @Component({
   selector: 'app-trip',
@@ -19,6 +20,7 @@ export class TripComponent implements OnInit {
   newTrip: CreateTripRequest = new CreateTripRequest();
   cars: CarResponse[] | null = [];
   employees: EmployeeResponse[] | null = [];
+  editedTrip: UpdateTripRequest = new UpdateTripRequest();
 
   constructor(private tripService: TripService,
               private carService: CarService,
@@ -26,6 +28,7 @@ export class TripComponent implements OnInit {
   }
 
   @ViewChild('addTripForm', {static: false}) addTrip: NgForm;
+  @ViewChild('editTripForm', {static: false}) editTrip: NgForm;
 
   ngOnInit(): void {
     this.getTrips();
@@ -58,6 +61,21 @@ export class TripComponent implements OnInit {
     );
   }
 
+  onUpdateTrip(form: NgForm): void {
+    this.tripService.editTrip(this.editedTrip).subscribe(
+      (response: HttpResponse<TripResponse>) => {
+        console.log(response.body);
+        alert('editTrip -> HttpStatus: ' + response.status + ' -> ' + response.body);
+        this.onClear(form);
+        document.getElementById('closeEditTripModal')?.click();
+        this.ngOnInit();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   onClear(form: NgForm): void {
     form.reset();
     form.form.markAsPristine();
@@ -80,6 +98,25 @@ export class TripComponent implements OnInit {
       (response: HttpResponse<EmployeeResponse[]>) => {
         this.employees = response.body;
         console.log('getEmployees -> HttpStatus: ' + response.status + ' -> ' + response.body)
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  onSelectTripIdToEdit(editedTripId: number): void {
+    this.tripService.getTrip(editedTripId).subscribe(
+      (response: HttpResponse<TripResponse>) => {
+        this.editedTrip.id = response.body?.id;
+        this.editedTrip.departureDate = response.body?.departureDate;
+        this.editedTrip.returnDate = response.body?.returnDate;
+        this.editedTrip.departureMeterStatus = response.body?.departureMeterStatus;
+        this.editedTrip.returnMeterStatus = response.body?.returnMeterStatus;
+        this.editedTrip.comments = response.body?.comments;
+        this.editedTrip.carId = response.body?.car.id;
+        this.editedTrip.employeeId = response.body?.employee.id;
+        console.log('getTrip -> HttpStatus: ' + response.status + ' -> ' + response.body);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
