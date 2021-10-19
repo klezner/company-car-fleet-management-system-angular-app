@@ -62,7 +62,9 @@
             <a href="/carworkshop/{{carWorkshop.id}}">
               <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
             </a>
-            <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i>
+            <button class="btn btn-outline-warning m-1" data-toggle="modal"
+                    data-target="#editCarWorkshopModal" (click)="onSelectCarWorkshopIdToEdit(carWorkshop.id)"><i
+              class="fa fa-edit"></i>
               Edytuj
             </button>
             <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
@@ -137,6 +139,77 @@
           Wyczyść
         </button>
         <button [disabled]="!addCarWorkshopForm.valid" type="submit" (click)="onAddCarWorkshop(addCarWorkshopForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- editCarWorkshopModal -->
+<div class="modal fade" id="editCarWorkshopModal" tabindex="-1" role="dialog"
+     aria-labelledby="editCarWorkshopModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editCarWorkshopModalLabel">Edytuj warsztat nr {{editedCarWorkshop.id}}</h5>
+        <button type="button" id="closeEditCarWorkshopModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(editCarWorkshopForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #editCarWorkshopForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="editName" class="form-label">Nazwa:</label>
+            <input id="editName" type="text" class="form-control" name="editName" required
+                   [(ngModel)]="editedCarWorkshop.name" #name="ngModel">
+            <div class="text-danger" *ngIf="name.errors && (name.touched || name.dirty)">
+              <small *ngIf="name.errors.required">Nazwa jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editZipCode" class="form-label">Kod pocztowy:</label>
+            <input id="editZipCode" type="text" class="form-control" name="editZipCode" required
+                   [(ngModel)]="editedCarWorkshop.zipCode" #zipCode="ngModel">
+            <div class="text-danger" *ngIf="zipCode.errors && (zipCode.touched || zipCode.dirty)">
+              <small *ngIf="zipCode.errors.required">Kod pocztowy jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editCity" class="form-label">Miasto:</label>
+            <input id="editCity" type="text" class="form-control" name="editCity" required
+                   [(ngModel)]="editedCarWorkshop.city" #city="ngModel">
+            <div class="text-danger"
+                 *ngIf="city.errors && (city.touched || city.dirty)">
+              <small *ngIf="city.errors.required">Miasto jest wymagane</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editStreet" class="form-label">Ulica:</label>
+            <input id="editStreet" type="text" class="form-control" name="editStreet" required
+                   [(ngModel)]="editedCarWorkshop.street" #street="ngModel">
+            <div class="text-danger"
+                 *ngIf="street.errors && (street.touched || street.dirty)">
+              <small *ngIf="street.errors.required">Ulica jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editNumber" class="form-label">Numer:</label>
+            <input id="editNumber" type="text" class="form-control" name="editNumber" required
+                   [(ngModel)]="editedCarWorkshop.number" #number="ngModel">
+            <div class="text-danger"
+                 *ngIf="number.errors && (number.touched || number.dirty)">
+              <small *ngIf="number.errors.required">Numer jest wymagany</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(editCarWorkshopForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!editCarWorkshopForm.valid" type="submit" (click)="onUpdateCarWorkshop(editCarWorkshopForm)"
                 class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
         </button>
       </div>
