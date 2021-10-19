@@ -1,0 +1,81 @@
+<div class="container-fluid trip-container">
+  <div class="d-flex flex-column">
+    <div class="row">
+      <div class="col col-12">
+        <div class="d-flex p-2 border-bottom mt-3">
+          <button class="btn btn-lg btn-outline-primary text-center">
+            <span><i class="fa fa-tachometer"></i></span>
+            <br>Dodaj wyjazd
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification for no trips -->
+    <div class="row">
+      <div *ngIf="trips?.length == 0 else noEmptyList" class="p-2 col-lg-12 col-md-12 col-xl-12">
+        <div class="alert alert-warning" role="alert">
+          <h4 class="alert-heading text-center"><i class="fa fa-exclamation-triangle"></i> BRAK WYJAZDÓW W BAZIE!
+          </h4>
+          <p class="text-center">Naciśnij przycisk 'Dodaj wyjazd' aby dodać nowy wyjazd.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Return to main page button -->
+    <div class="row">
+      <div class="col col-12 d-flex flex-row-reverse">
+        <a href="/">
+          <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do strony głównej</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- List of trips -->
+<ng-template #noEmptyList>
+  <div class="col col=12">
+    <h1 class="display-4 fw-bold lh-1 border-bottom">Lista wyjazdów:</h1>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr class="table-dark">
+        <th scope="col" class="text-center">#</th>
+        <th scope="col" class="text-center">Data wyjazdu</th>
+        <th scope="col" class="text-center">Data powrotu</th>
+        <th scope="col" class="text-center">Stan licznika przed</th>
+        <th scope="col" class="text-center">Stan licznika po</th>
+        <th scope="col" class="text-center">Komentarze</th>
+        <th scope="col" class="text-center">Pojazd</th>
+        <th scope="col" class="text-center">Pracownik</th>
+        <th scope="col" class="text-center">Akcje</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let trip of trips">
+        <th scope="row" class="text-center align-middle">{{trip.id}}</th>
+        <td class="text-center align-middle">{{trip.departureDate}}</td>
+        <td class="text-center align-middle">{{trip.returnDate}}</td>
+        <td class="text-center align-middle">{{trip.departureMeterStatus}}</td>
+        <td class="text-center align-middle">{{trip.returnMeterStatus}}</td>
+        <td class="text-center align-middle">{{trip.comments}}</td>
+        <td class="text-center align-middle">[{{trip.car.registrationNumber}}
+          ] {{trip.car.brand}} {{trip.car.model}}</td>
+        <td class="text-center align-middle">[{{trip.employee.department.company.name}}
+          ] [{{trip.employee.department.abbreviation}}] {{trip.employee.firstName}} {{trip.employee.lastName}}</td>
+        <td>
+          <div class="d-flex justify-content-end btn-group" role="group">
+            <a href="/trips/{{trip.id}}">
+              <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
+            </a>
+            <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i>
+              Edytuj
+            </button>
+            <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
