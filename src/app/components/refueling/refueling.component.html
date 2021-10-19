@@ -46,6 +46,7 @@
         <th scope="col" class="text-center">Stan licznika</th>
         <th scope="col" class="text-center">Ilość paliwa</th>
         <th scope="col" class="text-center">Koszt</th>
+        <th scope="col" class="text-center">Pojazd</th>
         <th scope="col" class="text-center">Wyjazd</th>
         <th scope="col" class="text-center">Akcje</th>
       </tr>
@@ -57,6 +58,8 @@
         <td class="text-center align-middle">{{refueling.meterStatus}}</td>
         <td class="text-center align-middle">{{refueling.fuelAmount}}</td>
         <td class="text-center align-middle">{{refueling.refuelingCost}}</td>
+        <td class="text-center align-middle">[{{refueling.trip.car.registrationNumber}}
+          ] {{refueling.trip.car.brand}} {{refueling.trip.car.model}}</td>
         <td class="text-center align-middle">{{refueling.trip.departureDate}} - {{refueling.trip.returnDate}}</td>
         <td>
           <div class="d-flex justify-content-end btn-group" role="group">

@@ -26,6 +26,7 @@ import {TripService} from "./shared/services/trip.service";
 import {TripDetailsComponent} from './components/trip-details/trip-details.component';
 import {RefuelingComponent} from './components/refueling/refueling.component';
 import {RefuelingService} from "./shared/services/refueling.service";
+import {RefuelingDetailsComponent} from './components/refueling-details/refueling-details.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {RefuelingService} from "./shared/services/refueling.service";
     FleetCardDetailsComponent,
     TripComponent,
     TripDetailsComponent,
-    RefuelingComponent
+    RefuelingComponent,
+    RefuelingDetailsComponent
   ],
   imports: [
     BrowserModule,

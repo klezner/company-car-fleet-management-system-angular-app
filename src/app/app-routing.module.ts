@@ -13,6 +13,7 @@ import {FleetCardDetailsComponent} from "./components/fleet-card-details/fleet-c
 import {TripComponent} from "./components/trip/trip.component";
 import {TripDetailsComponent} from "./components/trip-details/trip-details.component";
 import {RefuelingComponent} from "./components/refueling/refueling.component";
+import {RefuelingDetailsComponent} from "./components/refueling-details/refueling-details.component";
 
 const routes: Routes = [
   {path: "cars", component: CarComponent},
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path: "fleetcard/:id", component: FleetCardDetailsComponent},
   {path: "trips", component: TripComponent},
   {path: "trip/:id", component: TripDetailsComponent},
-  {path: "refuelings", component: RefuelingComponent}
+  {path: "refuelings", component: RefuelingComponent},
+  {path: "refueling/:id", component: RefuelingDetailsComponent}
 ];
 
 @NgModule({
