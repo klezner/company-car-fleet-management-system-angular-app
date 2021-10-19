@@ -24,6 +24,8 @@ import {FleetCardDetailsComponent} from './components/fleet-card-details/fleet-c
 import {TripComponent} from './components/trip/trip.component';
 import {TripService} from "./shared/services/trip.service";
 import {TripDetailsComponent} from './components/trip-details/trip-details.component';
+import {RefuelingComponent} from './components/refueling/refueling.component';
+import {RefuelingService} from "./shared/services/refueling.service";
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import {TripDetailsComponent} from './components/trip-details/trip-details.compo
     FleetCardComponent,
     FleetCardDetailsComponent,
     TripComponent,
-    TripDetailsComponent
+    TripDetailsComponent,
+    RefuelingComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import {TripDetailsComponent} from './components/trip-details/trip-details.compo
     DepartmentService,
     EmployeeService,
     FleetCardService,
-    TripService
+    TripService,
+    RefuelingService
   ],
   bootstrap: [AppComponent]
 })
