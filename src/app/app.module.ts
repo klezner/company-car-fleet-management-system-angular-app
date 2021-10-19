@@ -23,6 +23,7 @@ import {FleetCardService} from "./shared/services/fleet-card.service";
 import {FleetCardDetailsComponent} from './components/fleet-card-details/fleet-card-details.component';
 import {TripComponent} from './components/trip/trip.component';
 import {TripService} from "./shared/services/trip.service";
+import {TripDetailsComponent} from './components/trip-details/trip-details.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {TripService} from "./shared/services/trip.service";
     EmployeeDetailsComponent,
     FleetCardComponent,
     FleetCardDetailsComponent,
-    TripComponent
+    TripComponent,
+    TripDetailsComponent
   ],
   imports: [
     BrowserModule,

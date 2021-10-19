@@ -11,6 +11,7 @@ import {EmployeeDetailsComponent} from "./components/employee-details/employee-d
 import {FleetCardComponent} from "./components/fleet-card/fleet-card.component";
 import {FleetCardDetailsComponent} from "./components/fleet-card-details/fleet-card-details.component";
 import {TripComponent} from "./components/trip/trip.component";
+import {TripDetailsComponent} from "./components/trip-details/trip-details.component";
 
 const routes: Routes = [
   {path: "cars", component: CarComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: "employee/:id", component: EmployeeDetailsComponent},
   {path: "fleetcards", component: FleetCardComponent},
   {path: "fleetcard/:id", component: FleetCardDetailsComponent},
-  {path: "trips", component: TripComponent}
+  {path: "trips", component: TripComponent},
+  {path: "trip/:id", component: TripDetailsComponent}
 ];
 
 @NgModule({
