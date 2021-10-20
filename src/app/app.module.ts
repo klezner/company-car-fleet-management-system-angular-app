@@ -30,6 +30,8 @@ import {RefuelingDetailsComponent} from './components/refueling-details/refuelin
 import {CarWorkshopComponent} from './components/car-workshop/car-workshop.component';
 import {CarWorkshopService} from "./shared/services/car-workshop.service";
 import {CarWorkshopDetailsComponent} from './components/car-workshop-details/car-workshop-details.component';
+import {RepairComponent} from './components/repair/repair.component';
+import {RepairService} from "./shared/services/repair.service";
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import {CarWorkshopDetailsComponent} from './components/car-workshop-details/car
     RefuelingComponent,
     RefuelingDetailsComponent,
     CarWorkshopComponent,
-    CarWorkshopDetailsComponent
+    CarWorkshopDetailsComponent,
+    RepairComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import {CarWorkshopDetailsComponent} from './components/car-workshop-details/car
     FleetCardService,
     TripService,
     RefuelingService,
-    CarWorkshopService
+    CarWorkshopService,
+    RepairService
   ],
   bootstrap: [AppComponent]
 })

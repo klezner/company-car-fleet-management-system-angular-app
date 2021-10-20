@@ -1,0 +1,82 @@
+<div class="container-fluid repair-container">
+  <div class="d-flex flex-column">
+    <div class="row">
+      <div class="col col-12">
+        <div class="d-flex p-2 border-bottom mt-3">
+          <button class="btn btn-lg btn-outline-primary text-center">
+            <span><i class="fa fa-wrench"></i></span>
+            <br>Dodaj naprawę
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification for no repairs -->
+    <div class="row">
+      <div *ngIf="repairs?.length == 0 else noEmptyList" class="p-2 col-lg-12 col-md-12 col-xl-12">
+        <div class="alert alert-warning" role="alert">
+          <h4 class="alert-heading text-center"><i class="fa fa-exclamation-triangle"></i> BRAK NAPRAW W BAZIE!
+          </h4>
+          <p class="text-center">Naciśnij przycisk 'Dodaj naprawę' aby dodać nową naprawę.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Return to main page button -->
+    <div class="row">
+      <div class="col col-12 d-flex flex-row-reverse">
+        <a href="/">
+          <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do strony głównej</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- List of repairs -->
+<ng-template #noEmptyList>
+  <div class="col col=12">
+    <h1 class="display-4 fw-bold lh-1 border-bottom">Lista napraw:</h1>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+      <tr class="table-dark">
+        <th scope="col" class="text-center">#</th>
+        <th scope="col" class="text-center">Pojazd</th>
+        <th scope="col" class="text-center">Warsztat</th>
+        <th scope="col" class="text-center">Data wstawienia</th>
+        <th scope="col" class="text-center">Stan licznika</th>
+        <th scope="col" class="text-center">Numer faktury</th>
+        <th scope="col" class="text-center">Data faktury</th>
+        <th scope="col" class="text-center">Koszt</th>
+        <th scope="col" class="text-center">Data odbioru</th>
+        <th scope="col" class="text-center">Akcje</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let repair of repairs">
+        <th scope="row" class="text-center align-middle">{{repair.id}}</th>
+        <td class="text-center align-middle">[{{repair.trip.car.registrationNumber}}
+          ] {{repair.trip.car.brand}} {{repair.trip.car.model}}</td>
+        <td class="text-center align-middle"></td>
+        <td class="text-center align-middle">{{repair.leftDate}}</td>
+        <td class="text-center align-middle">{{repair.leftMeterStatus}}</td>
+        <td class="text-center align-middle">{{repair.invoiceNumber}}</td>
+        <td class="text-center align-middle">{{repair.invoiceDate}}</td>
+        <td class="text-center align-middle">{{repair.repairCost}}</td>
+        <td class="text-center align-middle">{{repair.pickupDate}}</td>
+        <td>
+          <div class="d-flex justify-content-end btn-group" role="group">
+            <a href="/trip/{{repair.id}}">
+              <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
+            </a>
+            <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i>
+              Edytuj
+            </button>
+            <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
