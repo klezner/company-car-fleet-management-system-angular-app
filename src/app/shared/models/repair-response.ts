@@ -1,4 +1,5 @@
 import {TripResponse} from "./trip-response";
+import {CarWorkshopResponse} from "./car-workshop-response";
 
 export class RepairResponse {
   id: number;
@@ -9,4 +10,5 @@ export class RepairResponse {
   repairCost: number;
   pickupDate: Date;
   trip: TripResponse;
+  carWorkshop: CarWorkshopResponse;
 }
