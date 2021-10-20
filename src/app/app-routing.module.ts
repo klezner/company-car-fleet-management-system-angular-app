@@ -17,6 +17,7 @@ import {RefuelingDetailsComponent} from "./components/refueling-details/refuelin
 import {CarWorkshopComponent} from "./components/car-workshop/car-workshop.component";
 import {CarWorkshopDetailsComponent} from "./components/car-workshop-details/car-workshop-details.component";
 import {RepairComponent} from "./components/repair/repair.component";
+import {RepairDetailsComponent} from "./components/repair-details/repair-details.component";
 
 const routes: Routes = [
   {path: "cars", component: CarComponent},
@@ -35,7 +36,8 @@ const routes: Routes = [
   {path: "refueling/:id", component: RefuelingDetailsComponent},
   {path: "carworkshops", component: CarWorkshopComponent},
   {path: "carworkshop/:id", component: CarWorkshopDetailsComponent},
-  {path: "repairs", component: RepairComponent}
+  {path: "repairs", component: RepairComponent},
+  {path: "repair/:id", component: RepairDetailsComponent}
 ];
 
 @NgModule({

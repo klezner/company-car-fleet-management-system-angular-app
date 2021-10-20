@@ -32,6 +32,7 @@ import {CarWorkshopService} from "./shared/services/car-workshop.service";
 import {CarWorkshopDetailsComponent} from './components/car-workshop-details/car-workshop-details.component';
 import {RepairComponent} from './components/repair/repair.component';
 import {RepairService} from "./shared/services/repair.service";
+import {RepairDetailsComponent} from './components/repair-details/repair-details.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {RepairService} from "./shared/services/repair.service";
     RefuelingDetailsComponent,
     CarWorkshopComponent,
     CarWorkshopDetailsComponent,
-    RepairComponent
+    RepairComponent,
+    RepairDetailsComponent
   ],
   imports: [
     BrowserModule,
