@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col col-12">
         <div class="d-flex p-2 border-bottom mt-3">
-          <button class="btn btn-lg btn-outline-primary text-center">
+          <button class="btn btn-lg btn-outline-primary text-center" data-toggle="modal"
+                  data-target="#addRepairModal" (click)="getTrips(); getCarWorkshops()">
             <span><i class="fa fa-wrench"></i></span>
             <br>Dodaj naprawę
           </button>
@@ -80,3 +81,107 @@
     </table>
   </div>
 </ng-template>
+
+<!-- addRepairModal -->
+<div class="modal fade" id="addRepairModal" tabindex="-1" role="dialog" aria-labelledby="addRepairModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addRepairModalLabel">Dodaj naprawę</h5>
+        <button type="button" id="closeAddRepairModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(addRepairForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #addRepairForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="addLeftDate" class="form-label">Data wstawienia:</label>
+            <input id="addLeftDate" type="date" class="form-control" name="addLeftDate" required
+                   [(ngModel)]="newRepair.leftDate" #leftDate="ngModel">
+            <div class="text-danger"
+                 *ngIf="leftDate.errors && (leftDate.touched || leftDate.dirty)">
+              <small *ngIf="leftDate.errors.required">Data wstawienia jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addLeftMeterStatus" class="form-label">Stan licznika:</label>
+            <input id="addLeftMeterStatus" type="number" class="form-control" name="addLeftMeterStatus" required
+                   [(ngModel)]="newRepair.leftMeterStatus" #leftMeterStatus="ngModel">
+            <div class="text-danger"
+                 *ngIf="leftMeterStatus.errors && (leftMeterStatus.touched || leftMeterStatus.dirty)">
+              <small *ngIf="leftMeterStatus.errors.required">Stan licznika jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addInvoiceNumber" class="form-label">Numer faktury:</label>
+            <input id="addInvoiceNumber" type="text" class="form-control" name="addInvoiceNumber" required
+                   [(ngModel)]="newRepair.invoiceNumber" #invoiceNumber="ngModel">
+            <div class="text-danger" *ngIf="invoiceNumber.errors && (invoiceNumber.touched || invoiceNumber.dirty)">
+              <small *ngIf="invoiceNumber.errors.required">Numer faktury jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addInvoiceDate" class="form-label">Data faktury:</label>
+            <input id="addInvoiceDate" type="date" class="form-control" name="addInvoiceDate" required
+                   [(ngModel)]="newRepair.invoiceDate" #invoiceDate="ngModel">
+            <div class="text-danger"
+                 *ngIf="invoiceDate.errors && (invoiceDate.touched || invoiceDate.dirty)">
+              <small *ngIf="invoiceDate.errors.required">Data faktury jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addRepairCost" class="form-label">Koszt:</label>
+            <input id="addRepairCost" type="number" class="form-control" name="addRepairCost"
+                   required min="0" max="9999" step="0.01"
+                   [(ngModel)]="newRepair.repairCost" #repairCost="ngModel">
+            <div class="text-danger"
+                 *ngIf="repairCost.errors && (repairCost.touched || repairCost.dirty)">
+              <small *ngIf="repairCost.errors.required">Koszt jest wymagany</small>
+              <small *ngIf="repairCost.errors.min">Koszt musi być większy niż 0</small>
+              <small *ngIf="repairCost.errors.max">Koszt być mniejszy niż 9999</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addPickupDate" class="form-label">Data odbioru:</label>
+            <input id="addPickupDate" type="date" class="form-control" name="addPickupDate" required
+                   [(ngModel)]="newRepair.pickupDate" #pickupDate="ngModel">
+            <div class="text-danger"
+                 *ngIf="pickupDate.errors && (pickupDate.touched || pickupDate.dirty)">
+              <small *ngIf="pickupDate.errors.required">Data odbioru jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addTripId" class="form-label">Wyjazd:</label>
+            <select id="addTripId" type="number" class="form-control" name="addTripId" required
+                    [(ngModel)]="newRepair.tripId" #tripId="ngModel">
+              <option *ngFor="let trip of trips" [ngValue]="trip.id">{{trip.departureDate}}
+                - {{trip.returnDate}}</option>
+            </select>
+            <div class="text-danger" *ngIf="tripId.errors && (tripId.touched || tripId.dirty)">
+              <small *ngIf="tripId.errors.required">Wyjazd jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="addCarWorkshopId" class="form-label">Warsztat:</label>
+            <select id="addCarWorkshopId" type="number" class="form-control" name="addCarWorkshopId" required
+                    [(ngModel)]="newRepair.carWorkshopId" #carWorkshopId="ngModel">
+              <option *ngFor="let carWorkshop of carWorkshops" [ngValue]="carWorkshop.id">{{carWorkshop.name}}</option>
+            </select>
+            <div class="text-danger" *ngIf="carWorkshopId.errors && (carWorkshopId.touched || carWorkshopId.dirty)">
+              <small *ngIf="carWorkshopId.errors.required">Warsztat jest wymagany</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(addRepairForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!addRepairForm.valid" type="submit" (click)="onAddRepair(addRepairForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
