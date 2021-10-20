@@ -8,6 +8,7 @@ import {CreateRepairRequest} from "../../shared/models/create-repair-request";
 import {TripService} from "../../shared/services/trip.service";
 import {CarWorkshopService} from "../../shared/services/car-workshop.service";
 import {CarWorkshopResponse} from "../../shared/models/car-workshop-response";
+import {UpdateRepairRequest} from "../../shared/models/update-repair-request";
 
 @Component({
   selector: 'app-repair',
@@ -19,13 +20,15 @@ export class RepairComponent implements OnInit {
   newRepair: CreateRepairRequest = new CreateRepairRequest();
   trips: TripResponse[] | null = [];
   carWorkshops: CarWorkshopResponse[] | null = [];
+  editedRepair: UpdateRepairRequest = new UpdateRepairRequest();
 
   constructor(private repairService: RepairService,
               private tripService: TripService,
               private carWorkshopService: CarWorkshopService) {
   }
 
-  @ViewChild('addTripForm', {static: false}) addTrip: NgForm;
+  @ViewChild('addRepairFormForm', {static: false}) addRepair: NgForm;
+  @ViewChild('addRepairFormForm', {static: false}) editRepair: NgForm;
 
   ngOnInit(): void {
     this.getRepairs();
@@ -58,6 +61,21 @@ export class RepairComponent implements OnInit {
     );
   }
 
+  onUpdateRepair(form: NgForm): void {
+    this.repairService.editRepair(this.editedRepair).subscribe(
+      (response: HttpResponse<RepairResponse>) => {
+        console.log(response.body);
+        alert('editRepair -> HttpStatus: ' + response.status + ' -> ' + response.body);
+        this.onClear(form);
+        document.getElementById('closeEditRepairModal')?.click();
+        this.ngOnInit();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   onClear(form: NgForm): void {
     form.reset();
     form.form.markAsPristine();
@@ -80,6 +98,26 @@ export class RepairComponent implements OnInit {
       (response: HttpResponse<CarWorkshopResponse[]>) => {
         this.carWorkshops = response.body;
         console.log('getCarWorkshops -> HttpStatus: ' + response.status + ' -> ' + response.body);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  onSelectRepairIdToEdit(editedRepairId: number): void {
+    this.repairService.getRepair(editedRepairId).subscribe(
+      (response: HttpResponse<RepairResponse>) => {
+        this.editedRepair.id = response.body?.id;
+        this.editedRepair.leftDate = response.body?.leftDate;
+        this.editedRepair.leftMeterStatus = response.body?.leftMeterStatus;
+        this.editedRepair.invoiceNumber = response.body?.invoiceNumber;
+        this.editedRepair.invoiceDate = response.body?.invoiceDate;
+        this.editedRepair.repairCost = response.body?.repairCost;
+        this.editedRepair.pickupDate = response.body?.pickupDate;
+        this.editedRepair.tripId = response.body?.trip?.id;
+        this.editedRepair.carWorkshopId = response.body?.carWorkshop?.id;
+        console.log('getRepair -> HttpStatus: ' + response.status + ' -> ' + response.body);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

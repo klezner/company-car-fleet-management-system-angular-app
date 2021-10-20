@@ -70,7 +70,9 @@
             <a href="/trip/{{repair.id}}">
               <button class="btn btn-outline-info m-1"><i class="fa fa-search"></i> Szczegóły</button>
             </a>
-            <button class="btn btn-outline-warning m-1"><i class="fa fa-edit"></i>
+            <button class="btn btn-outline-warning m-1" data-toggle="modal" data-target="#editRepairModal"
+                    (click)="onSelectRepairIdToEdit(repair.id); getTrips(); getCarWorkshops()"><i
+              class="fa fa-edit"></i>
               Edytuj
             </button>
             <button class="btn btn-outline-danger m-1"><i class="fa fa-remove"></i> Usuń</button>
@@ -179,6 +181,110 @@
           Wyczyść
         </button>
         <button [disabled]="!addRepairForm.valid" type="submit" (click)="onAddRepair(addRepairForm)"
+                class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- editRepairModal -->
+<div class="modal fade" id="editRepairModal" tabindex="-1" role="dialog" aria-labelledby="editRepairModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editRepairModalLabel">Edytuj naprawę nr {{editedRepair.id}}</h5>
+        <button type="button" id="closeEditRepairModal" class="btn" data-dismiss="modal"
+                aria-label="Close" (click)="onClear(editRepairForm)"><i class="fa fa-window-close"></i></button>
+      </div>
+      <div class="modal-body">
+        <form #editRepairForm="ngForm">
+          <div class="form-group mb-3">
+            <label for="editLeftDate" class="form-label">Data wstawienia:</label>
+            <input id="editLeftDate" type="date" class="form-control" name="editLeftDate" required
+                   [(ngModel)]="editedRepair.leftDate" #leftDate="ngModel">
+            <div class="text-danger"
+                 *ngIf="leftDate.errors && (leftDate.touched || leftDate.dirty)">
+              <small *ngIf="leftDate.errors.required">Data wstawienia jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editLeftMeterStatus" class="form-label">Stan licznika:</label>
+            <input id="editLeftMeterStatus" type="number" class="form-control" name="editLeftMeterStatus" required
+                   [(ngModel)]="editedRepair.leftMeterStatus" #leftMeterStatus="ngModel">
+            <div class="text-danger"
+                 *ngIf="leftMeterStatus.errors && (leftMeterStatus.touched || leftMeterStatus.dirty)">
+              <small *ngIf="leftMeterStatus.errors.required">Stan licznika jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editInvoiceNumber" class="form-label">Numer faktury:</label>
+            <input id="editInvoiceNumber" type="text" class="form-control" name="editInvoiceNumber" required
+                   [(ngModel)]="editedRepair.invoiceNumber" #invoiceNumber="ngModel">
+            <div class="text-danger" *ngIf="invoiceNumber.errors && (invoiceNumber.touched || invoiceNumber.dirty)">
+              <small *ngIf="invoiceNumber.errors.required">Numer faktury jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editInvoiceDate" class="form-label">Data faktury:</label>
+            <input id="editInvoiceDate" type="date" class="form-control" name="editInvoiceDate" required
+                   [(ngModel)]="editedRepair.invoiceDate" #invoiceDate="ngModel">
+            <div class="text-danger"
+                 *ngIf="invoiceDate.errors && (invoiceDate.touched || invoiceDate.dirty)">
+              <small *ngIf="invoiceDate.errors.required">Data faktury jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editRepairCost" class="form-label">Koszt:</label>
+            <input id="editRepairCost" type="number" class="form-control" name="editRepairCost"
+                   required min="0" max="9999" step="0.01"
+                   [(ngModel)]="editedRepair.repairCost" #repairCost="ngModel">
+            <div class="text-danger"
+                 *ngIf="repairCost.errors && (repairCost.touched || repairCost.dirty)">
+              <small *ngIf="repairCost.errors.required">Koszt jest wymagany</small>
+              <small *ngIf="repairCost.errors.min">Koszt musi być większy niż 0</small>
+              <small *ngIf="repairCost.errors.max">Koszt być mniejszy niż 9999</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editPickupDate" class="form-label">Data odbioru:</label>
+            <input id="editPickupDate" type="date" class="form-control" name="editPickupDate" required
+                   [(ngModel)]="editedRepair.pickupDate" #pickupDate="ngModel">
+            <div class="text-danger"
+                 *ngIf="pickupDate.errors && (pickupDate.touched || pickupDate.dirty)">
+              <small *ngIf="pickupDate.errors.required">Data odbioru jest wymagana</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editTripId" class="form-label">Wyjazd:</label>
+            <select id="editTripId" type="number" class="form-control" name="editTripId" required
+                    [(ngModel)]="editedRepair.tripId" #tripId="ngModel">
+              <option *ngFor="let trip of trips" [ngValue]="trip.id">{{trip.departureDate}}
+                - {{trip.returnDate}}</option>
+            </select>
+            <div class="text-danger" *ngIf="tripId.errors && (tripId.touched || tripId.dirty)">
+              <small *ngIf="tripId.errors.required">Wyjazd jest wymagany</small>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label for="editCarWorkshopId" class="form-label">Warsztat:</label>
+            <select id="editCarWorkshopId" type="number" class="form-control" name="editCarWorkshopId" required
+                    [(ngModel)]="editedRepair.carWorkshopId" #carWorkshopId="ngModel">
+              <option *ngFor="let carWorkshop of carWorkshops" [ngValue]="carWorkshop.id">{{carWorkshop.name}}</option>
+            </select>
+            <div class="text-danger" *ngIf="carWorkshopId.errors && (carWorkshopId.touched || carWorkshopId.dirty)">
+              <small *ngIf="carWorkshopId.errors.required">Warsztat jest wymagany</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="onClear(editRepairForm)" class="btn btn-warning mx-2"><i
+          class="fa fa-close"></i>
+          Wyczyść
+        </button>
+        <button [disabled]="!editRepairForm.valid" type="submit" (click)="onUpdateRepair(editRepairForm)"
                 class="btn btn-primary mx-2"><i class="fa fa-save"></i> Zapisz
         </button>
       </div>
