@@ -1,0 +1,67 @@
+<div class="container my-3">
+  <div class="row p-2 pe-lg-0 pt-lg-2 align-items-center rounded-3 border shadow">
+    <div class="p-2 p-lg-5 pt-lg-3 col col-12">
+      <!-- Details page title -->
+      <div class="row">
+        <div class="col col-12">
+          <h1 class="display-4 fw-bold lh-1 border-bottom">Szczegóły warsztatu:</h1>
+        </div>
+      </div>
+      <!-- Details page -->
+      <div class="row">
+        <!-- CarWorkshop details -->
+        <div class="col col-3">
+          <table class="table table-bordered mt-5">
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Nazwa</th>
+              <td class="text-center align-middle">{{carWorkshop?.name}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Kod pocztowy</th>
+              <td class="text-center align-middle">{{carWorkshop?.zipCode}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Miasto</th>
+              <td class="text-center align-middle">{{carWorkshop?.city}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Ulica</th>
+              <td class="text-center align-middle">{{carWorkshop?.street}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="table-dark text-center align-middle">Numer</th>
+              <td class="text-center align-middle">{{carWorkshop?.number}}</td>
+            </tr>
+          </table>
+        </div>
+        <!-- CarWorkshop repairs -->
+        <div class="col col-8 offset-1">
+          <div class="row">
+            <div class="col col-12">
+              <h3 class="display-5 lh-1 border-bottom mt-3">Naprawy:</h3>
+              <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr class="table-dark">
+                  <th scope="col" class="text-center">#</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td class="text-center align-middle">id</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Return to CarWorkshops list page button -->
+          <div class="row">
+            <div class="col col-12 d-flex flex-row-reverse">
+              <a href="/carworkshops">
+                <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do listy warsztatów
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
