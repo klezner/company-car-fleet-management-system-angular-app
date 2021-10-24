@@ -12,6 +12,7 @@ import {UpdateRefuelingRequest} from "../models/update-refueling-request";
 export class RefuelingService {
   private apiServerUrl = environment.localApiUrl;
   private refuelingPath = 'refueling';
+  private tripPath = 'trip';
 
   constructor(private http: HttpClient) {
   }
@@ -36,5 +37,9 @@ export class RefuelingService {
       observe: 'response',
       headers: {'Content-Type': 'application/json'}
     });
+  }
+
+  getRefuelingsByTripId(tripId: number): Observable<HttpResponse<RefuelingResponse[]>> {
+    return this.http.get<RefuelingResponse[]>(`${this.apiServerUrl}/${this.refuelingPath}/${this.tripPath}/${tripId}`, {observe: 'response'});
   }
 }
