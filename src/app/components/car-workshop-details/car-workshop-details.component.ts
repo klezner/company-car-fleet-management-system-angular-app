@@ -27,7 +27,7 @@ export class CarWorkshopDetailsComponent implements OnInit {
     this.getRepairsByCarWorkshopId(this.id);
   }
 
-  getCarWorkshopDetails(id: number): void {
+  private getCarWorkshopDetails(id: number): void {
     this.carWorkshopService.getCarWorkshop(id).subscribe(
       (response: HttpResponse<CarWorkshopResponse>) => {
         this.carWorkshop = response.body;
@@ -39,7 +39,7 @@ export class CarWorkshopDetailsComponent implements OnInit {
     );
   }
 
-  getRepairsByCarWorkshopId(id: number): void {
+  private getRepairsByCarWorkshopId(id: number): void {
     this.repairService.getRepairsByCarWorkshopId(id).subscribe(
       (response: HttpResponse<RepairResponse[]>) => {
         this.repairs = response.body;
