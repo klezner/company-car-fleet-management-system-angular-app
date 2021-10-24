@@ -12,6 +12,7 @@ import {UpdateRepairRequest} from "../models/update-repair-request";
 export class RepairService {
   private apiServerUrl = environment.localApiUrl;
   private repairPath = 'repair';
+  private carWorkshopPath = 'carworkshop';
 
   constructor(private http: HttpClient) {
   }
@@ -36,5 +37,9 @@ export class RepairService {
       observe: 'response',
       headers: {'Content-Type': 'application/json'}
     });
+  }
+
+  getRepairsByCarWorkshopId(carWorkshopId: number): Observable<HttpResponse<RepairResponse[]>> {
+    return this.http.get<RepairResponse[]>(`${this.apiServerUrl}/${this.repairPath}/${this.carWorkshopPath}/${carWorkshopId}`, {observe: 'response'});
   }
 }
