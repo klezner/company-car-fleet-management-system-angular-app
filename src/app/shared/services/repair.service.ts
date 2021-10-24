@@ -13,6 +13,7 @@ export class RepairService {
   private apiServerUrl = environment.localApiUrl;
   private repairPath = 'repair';
   private carWorkshopPath = 'carworkshop';
+  private tripPath = 'trip';
 
   constructor(private http: HttpClient) {
   }
@@ -41,5 +42,9 @@ export class RepairService {
 
   getRepairsByCarWorkshopId(carWorkshopId: number): Observable<HttpResponse<RepairResponse[]>> {
     return this.http.get<RepairResponse[]>(`${this.apiServerUrl}/${this.repairPath}/${this.carWorkshopPath}/${carWorkshopId}`, {observe: 'response'});
+  }
+
+  getRepairsByTripId(tripId: number): Observable<HttpResponse<RepairResponse[]>> {
+    return this.http.get<RepairResponse[]>(`${this.apiServerUrl}/${this.repairPath}/${this.tripPath}/${tripId}`, {observe: 'response'});
   }
 }

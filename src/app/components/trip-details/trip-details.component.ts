@@ -3,6 +3,8 @@ import {TripResponse} from "../../shared/models/trip-response";
 import {TripService} from "../../shared/services/trip.service";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {RepairResponse} from "../../shared/models/repair-response";
+import {RepairService} from "../../shared/services/repair.service";
 
 @Component({
   selector: 'app-trip-details',
@@ -12,14 +14,21 @@ import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 export class TripDetailsComponent implements OnInit {
   id: number;
   trip: TripResponse | null;
+  repairs: RepairResponse[] | null = [];
 
   constructor(private tripService: TripService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private repairService: RepairService) {
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    this.tripService.getTrip(this.id).subscribe(
+    this.getTripDetails(this.id);
+    this.getRepairsByTripId(this.id);
+  }
+
+  private getTripDetails(id: number): void {
+    this.tripService.getTrip(id).subscribe(
       (response: HttpResponse<TripResponse>) => {
         this.trip = response.body;
         console.log('geTrip -> HttpStatus: ' + response.status + ' -> ' + response.body)
@@ -30,4 +39,15 @@ export class TripDetailsComponent implements OnInit {
     );
   }
 
+  private getRepairsByTripId(id: number): void {
+    this.repairService.getRepairsByTripId(id).subscribe(
+      (response: HttpResponse<RepairResponse[]>) => {
+        this.repairs = response.body;
+        console.log('getRepairsByTripId -> HttpStatus: ' + response.status + ' -> ' + response.body)
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
 }
