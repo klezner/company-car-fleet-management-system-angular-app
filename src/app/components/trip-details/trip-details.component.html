@@ -56,12 +56,16 @@
               <table class="table table-bordered">
                 <thead class="thead-dark">
                 <tr class="table-dark">
-                  <th scope="col" class="text-center">#</th>
+                  <th scope="col" class="text-center">Data</th>
+                  <th scope="col" class="text-center">Ilość paliwa</th>
+                  <th scope="col" class="text-center">Koszt</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td class="text-center align-middle">id</td>
+                <tr *ngFor="let refueling of refuelings">
+                  <td class="text-center align-middle">{{refueling.date}}</td>
+                  <td class="text-center align-middle">{{refueling.fuelAmount}}</td>
+                  <td class="text-center align-middle">{{refueling.refuelingCost}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -74,23 +78,16 @@
               <table class="table table-bordered">
                 <thead class="thead-dark">
                 <tr class="table-dark">
-                  <th scope="col" class="text-center">Pojazd</th>
                   <th scope="col" class="text-center">Data wstawienia</th>
                   <th scope="col" class="text-center">Data odbioru</th>
                   <th scope="col" class="text-center">Koszt</th>
-                  <th scope="col" class="text-center">Pracownik</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let repair of repairs">
-                  <td class="text-center align-middle">[{{repair.trip.car.registrationNumber}}
-                    ] {{repair.trip.car.brand}} {{repair.trip.car.model}}</td>
                   <td class="text-center align-middle">{{repair.leftDate}}</td>
                   <td class="text-center align-middle">{{repair.pickupDate}}</td>
                   <td class="text-center align-middle">{{repair.repairCost}}</td>
-                  <td class="text-center align-middle">[{{repair.trip.employee.department.company.name}}]
-                    [{{repair.trip.employee.department.abbreviation}}
-                    ] {{repair.trip.employee.firstName}} {{repair.trip.employee.lastName}}</td>
                 </tr>
                 </tbody>
               </table>
