@@ -87,9 +87,33 @@
               </table>
             </div>
           </div>
+          <!-- Repair employee -->
+          <div class="row">
+            <div class="col col-12">
+              <h3 class="display-5 lh-1 border-bottom mt-3">Pracownik:</h3>
+              <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr class="table-dark">
+                  <th scope="col" class="text-center">Firma</th>
+                  <th scope="col" class="text-center">Departament</th>
+                  <th scope="col" class="text-center">Imię</th>
+                  <th scope="col" class="text-center">Nazwisko</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td class="text-center align-middle">{{repair?.trip?.employee?.department?.company?.name}}</td>
+                  <td class="text-center align-middle">{{repair?.trip?.employee?.department?.abbreviation}}</td>
+                  <td class="text-center align-middle">{{repair?.trip?.employee?.firstName}}</td>
+                  <td class="text-center align-middle">{{repair?.trip?.employee?.lastName}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- Repair carworkshop -->
+      <!-- Repair trip -->
       <div class="row">
         <div class="col col-12">
           <h3 class=" display-5 lh-1 border-bottom mt-3">Wyjazd:</h3>
@@ -100,7 +124,7 @@
               <th scope="col" class="text-center">Data powrotu</th>
               <th scope="col" class="text-center">Stan licznika przed</th>
               <th scope="col" class="text-center">Stan licznika po</th>
-              <th scope="col" class="text-center">Pracownik</th>
+              <th scope="col" class="text-center">Komentarz</th>
             </tr>
             </thead>
             <tbody>
@@ -109,9 +133,7 @@
               <td class="text-center align-middle">{{repair?.trip?.returnDate}}</td>
               <td class="text-center align-middle">{{repair?.trip?.departureMeterStatus}}</td>
               <td class="text-center align-middle">{{repair?.trip?.departureMeterStatus}}</td>
-              <td class="text-center align-middle">[{{repair?.trip?.employee?.department?.company?.name}}]
-                [{{repair?.trip?.employee?.department?.abbreviation}}
-                ] {{repair?.trip?.employee?.firstName}} {{repair?.trip?.employee?.lastName}}</td>
+              <td class="text-center align-middle">{{repair?.trip?.comments}}</td>
             </tr>
             </tbody>
           </table>
