@@ -36,16 +36,6 @@
               <th scope="row" class="table-dark text-center align-middle">Komentarz</th>
               <td class="text-center align-middle">{{trip?.comments}}</td>
             </tr>
-            <tr>
-              <th scope="row" class="table-dark text-center align-middle">Pojazd</th>
-              <td class="text-center align-middle">[{{trip?.car?.registrationNumber}}
-                ] {{trip?.car?.brand}} {{trip?.car?.model}}</td>
-            </tr>
-            <tr>
-              <th scope="row" class="table-dark text-center align-middle">Pracownik</th>
-              <td class="text-center align-middle">[{{trip?.employee?.department?.company?.name}}]
-                [{{trip?.employee?.department?.name}}] {{trip?.employee?.firstName}} {{trip?.employee?.lastName}}</td>
-            </tr>
           </table>
         </div>
         <!-- Trip refuelings -->
@@ -95,14 +85,60 @@
           </div>
         </div>
       </div>
-      <!-- Return to trip list page button -->
+      <!-- Trip employee -->
       <div class="row">
-        <div class="col col-12 d-flex flex-row-reverse">
-          <a href="/trips">
-            <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do listy wyjazdów</button>
-          </a>
+        <div class="col col-12">
+          <h3 class="display-5 lh-1 border-bottom mt-3">Pracownik:</h3>
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr class="table-dark">
+              <th scope="col" class="text-center">Firma</th>
+              <th scope="col" class="text-center">Departament</th>
+              <th scope="col" class="text-center">Imię</th>
+              <th scope="col" class="text-center">Nazwisko</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="text-center align-middle">{{trip?.employee?.department?.company?.name}}</td>
+              <td class="text-center align-middle">{{trip?.employee?.department?.abbreviation}}</td>
+              <td class="text-center align-middle">{{trip?.employee?.firstName}}</td>
+              <td class="text-center align-middle">{{trip?.employee?.lastName}}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+      <!-- Trip car -->
+      <div class="row">
+        <div class="col col-12">
+          <h3 class="display-5 lh-1 border-bottom mt-3">Pojazd:</h3>
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr class="table-dark">
+              <th scope="col" class="text-center">Nr rejestracyjny</th>
+              <th scope="col" class="text-center">Marka</th>
+              <th scope="col" class="text-center">Model</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="text-center align-middle">{{trip?.car?.registrationNumber}}</td>
+              <td class="text-center align-middle">{{trip?.car?.brand}}</td>
+              <td class="text-center align-middle">{{trip?.car?.model}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Return to trip list page button -->
+  <div class="row">
+    <div class="col col-12 d-flex flex-row-reverse">
+      <a href="/trips">
+        <button class="btn btn-outline-primary m-1"><i class="fa fa-arrow-left"></i> Wróć do listy wyjazdów</button>
+      </a>
     </div>
   </div>
 </div>
