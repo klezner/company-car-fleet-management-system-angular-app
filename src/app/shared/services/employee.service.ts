@@ -12,6 +12,7 @@ import {UpdateEmployeeRequest} from "../models/update-employee-request";
 export class EmployeeService {
   private apiServerUrl = environment.localApiUrl;
   private employeePath = 'employee';
+  private departmentPath = 'department';
 
   constructor(private http: HttpClient) {
   }
@@ -36,5 +37,9 @@ export class EmployeeService {
       observe: 'response',
       headers: {'Content-Type': 'application/json'}
     });
+  }
+
+  getEmployeeByDepartmentId(departmentId: number): Observable<HttpResponse<EmployeeResponse[]>> {
+    return this.http.get<EmployeeResponse[]>(`${this.apiServerUrl}/${this.employeePath}/${this.departmentPath}/${departmentId}`, {observe: 'response'});
   }
 }
