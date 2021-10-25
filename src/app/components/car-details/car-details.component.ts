@@ -3,6 +3,8 @@ import {CarResponse} from "../../shared/models/car-response";
 import {CarService} from "../../shared/services/car.service";
 import {ActivatedRoute} from "@angular/router";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {TripResponse} from "../../shared/models/trip-response";
+import {TripService} from "../../shared/services/trip.service";
 
 @Component({
   selector: 'app-car-details',
@@ -12,13 +14,20 @@ import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 export class CarDetailsComponent implements OnInit {
   id: number;
   car: CarResponse | null;
+  trips: TripResponse[] | null = [];
 
   constructor(private carService: CarService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private tripService: TripService) {
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+    this.getCarDetails(this.id);
+    this.getTripsByCarId(this.id);
+  }
+
+  private getCarDetails(id: number): void {
     this.carService.getCar(this.id).subscribe(
       (response: HttpResponse<CarResponse>) => {
         this.car = response.body;
@@ -30,4 +39,15 @@ export class CarDetailsComponent implements OnInit {
     );
   }
 
+  private getTripsByCarId(id: number): void {
+    this.tripService.getTripsByCarId(id).subscribe(
+      (response: HttpResponse<TripResponse[]>) => {
+        this.trips = response.body;
+        console.log('getTripsByCarId -> HttpStatus: ' + response.status + ' -> ' + response.body)
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
 }

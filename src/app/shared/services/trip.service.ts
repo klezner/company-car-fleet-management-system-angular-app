@@ -12,6 +12,7 @@ import {UpdateTripRequest} from "../models/update-trip-request";
 export class TripService {
   private apiServerUrl = environment.localApiUrl;
   private tripPath = 'trip';
+  private carPath = 'car';
 
   constructor(private http: HttpClient) {
   }
@@ -36,5 +37,9 @@ export class TripService {
       observe: 'response',
       headers: {'Content-Type': 'application/json'}
     });
+  }
+
+  getTripsByCarId(carId: number): Observable<HttpResponse<TripResponse[]>> {
+    return this.http.get<TripResponse[]>(`${this.apiServerUrl}/${this.tripPath}/${this.carPath}/${carId}`, {observe: 'response'});
   }
 }
