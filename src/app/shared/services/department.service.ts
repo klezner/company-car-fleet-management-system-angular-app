@@ -12,6 +12,7 @@ import {UpdateDepartmentRequest} from "../models/update-department-request";
 export class DepartmentService {
   private apiServerUrl = environment.localApiUrl;
   private departmentPath = 'department';
+  private companyPath = 'company';
 
   constructor(private http: HttpClient) {
   }
@@ -36,5 +37,9 @@ export class DepartmentService {
       observe: 'response',
       headers: {'Content-Type': 'application/json'}
     });
+  }
+
+  getDepartmentsByCompanyId(companyId: number): Observable<HttpResponse<DepartmentResponse[]>> {
+    return this.http.get<DepartmentResponse[]>(`${this.apiServerUrl}/${this.departmentPath}/${this.companyPath}/${companyId}`, {observe: 'response'});
   }
 }
