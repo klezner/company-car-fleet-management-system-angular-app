@@ -2,6 +2,29 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.8.
 
+## General Information
+Frontend application for [CarFleetManagementSystemRestApi](https://github.com/klezner/car-fleet-management-system-rest-api).
+App uses this REST API to create, read, update and delete data and present it on webpages.
+
+## Technologies used
+
+- Angular
+- Bootstrap
+- Font Awesome
+
+## Screenshots
+![Example screenshot](./ccfms.png)
+
+## Project Status
+
+> Project is: _in progress_
+
+## Room for Improvement
+
+- Data deleting
+- Security implementing
+- 
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
@@ -25,3 +48,14 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Contact
+
+Created by [@klezner](https://github.com/klezner) - feel free to contact me!
+
+
+<!-- Optional -->
+<!-- ## License -->
+<!-- This project is open source and available under the [... License](). -->
+
+<!-- You don't have to include all sections - just the one's relevant to your project -->
